@@ -46,6 +46,12 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	 */
 	protected function checkPhantomIsAvailable()
 	{
+		// We don't need to check if we have an explicit pathname
+		if ($this->getPhantomPath())
+		{
+			return;
+		}
+
 		$output = $return = null;
 		exec('which phantomjs', $output, $return);
 		if ($return)
@@ -162,6 +168,14 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	protected function getTestDomain()
 	{
 		return 'http://127.0.0.1:8090';
+	}
+
+	/**
+	 * The path to the Phantom binary, or false to auto-detect with `which`
+	 */
+	protected function getPhantomPath()
+	{
+		return false;
 	}
 
 	/**
