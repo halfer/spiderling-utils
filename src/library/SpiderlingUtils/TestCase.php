@@ -27,9 +27,8 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 		$this->checkPhantomIsAvailable();
 
 		// We can supply a log location here (or omit to use /dev/null)
-		$logFile = $this->getLogPath();
 		$connection = new Driver_Phantomjs_Connection();
-		$connection->start(null, $this->getLogMode() ? $logFile : '/dev/null');
+		$connection->start(null, $this->getLogPath() ?: '/dev/null');
 
 		$driver = new \Openbuildings\Spiderling\Driver_Phantomjs();
 		$driver->connection($connection);
@@ -165,17 +164,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	}
 
 	/**
-	 * Override this to turn on PhantomJS logging
-	 *
-	 * @return boolean
-	 */
-	protected function getLogMode()
-	{
-		return false;
-	}
-
-	/**
-	 * Override this to specify the PhantomJS logging path
+	 * Override this to specify the PhantomJS logging path, or use false to turn off
 	 *
 	 * @return string
 	 */
