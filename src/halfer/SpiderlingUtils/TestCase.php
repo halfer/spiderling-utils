@@ -21,11 +21,6 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 {
 	use \Awooga\Testing\BaseTestCase;
 
-	const DOMAIN = 'http://127.0.0.1:8090';
-
-	// Change this to turn logging back on
-	const LOG_ACTIONS = false;
-
 	/**
 	 * Let's set add some logging here, to see why PhantomJS is flaky on Travis
 	 */
@@ -34,9 +29,9 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 		$this->checkPhantomIsAvailable();
 
 		// We can supply a log location here (or omit to use /dev/null)
-		$logFile = '/tmp/phantom-awooga.log';
+		$logFile = $this->getLogPath();
 		$connection = new Driver_Phantomjs_Connection();
-		$connection->start(null, self::LOG_ACTIONS ? $logFile : '/dev/null');
+		$connection->start(null, $this->getLogMode() ? $logFile : '/dev/null');
 
 		$driver = new \Openbuildings\Spiderling\Driver_Phantomjs();
 		$driver->connection($connection);
@@ -76,7 +71,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 			{
 				break;
 			}
-		}		
+		}
 	}
 
 	/**
@@ -132,7 +127,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	 */
 	protected function encodedScreenshot($title)
 	{
-		$file = '/tmp/awooga-screenshot.png';
+		$file = $this->getScreenshotRawPath();
 		$this->screenshot($file);
 		$this->base64out($file, $title);
 		unlink($file);
@@ -158,6 +153,46 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 			"-----\n" .
 			chunk_split(base64_encode(file_get_contents($filename))) .
 			"-----\n\n";
-		file_put_contents('/tmp/awooga-screenshot-data.log', $data, FILE_APPEND);
+		file_put_contents($this->getScreenshotEncodedPath(), $data, FILE_APPEND);
+	}
+
+	/**
+	 * Override this to change the test domain in use
+	 *
+	 * @return string
+	 */
+	protected function getTestDomain()
+	{
+		return 'http://127.0.0.1:8090';
+	}
+
+	/**
+	 * Override this to turn on PhantomJS logging
+	 *
+	 * @return boolean
+	 */
+	protected function getLogMode()
+	{
+		return false;
+	}
+
+	/**
+	 * Override this to specify the PhantomJS logging path
+	 *
+	 * @return string
+	 */
+	protected function getLogPath()
+	{
+		return '/tmp/spiderling-phantom.log';
+	}
+
+	protected function getScreenshotRawPath()
+	{
+		return '/tmp/spiderling-screenshot.log';
+	}
+
+	protected function getScreenshotEncodedPath()
+	{
+		return '/tmp/spiderling-screenshot-data.log';
 	}
 }
