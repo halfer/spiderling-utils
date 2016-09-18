@@ -177,9 +177,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 */
 	protected function getServerScriptPath()
 	{
-		return $this->getProjectRoot() . '/test/browser/scripts/server.sh';
+		return $this->getProjectRoot() . '/src/scripts/server.sh';
 	}
 
+	/**
+	 * @todo This is now wrong, since it is in the vendor folder - use absolute tmp path instead?
+	 */
 	protected function getServerPidPath()
 	{
 		return $this->getProjectRoot() . '/.server.pid';
