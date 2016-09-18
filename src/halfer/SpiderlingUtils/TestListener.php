@@ -2,17 +2,14 @@
 
 namespace halfer\SpiderlingUtils;
 
-class TestListener extends \PHPUnit_Framework_BaseTestListener
+abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 {
 	protected $hasInitialised = false;
 
 	public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
 	{
 		// This will hear of whole suites being run, or individual tests
-		if (
-			($suite->getName() == 'browser') ||
-			(strpos($suite->getName(), 'Awooga\\Testing\\Browser\\') !== false)
-		)
+		if ($this->switchOnBySuiteName($suite->getName()))
 		{
 			$this->runningBrowserTests();
 		}
@@ -23,10 +20,9 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
 		if (!$this->hasInitialised)
 		{
 			$this->touchPhantomLog();
-			$this->startServer();
+			$this->forkToStartServer();
 			$this->hasInitialised = true;
 			$this->checkServer();
-			$this->removeSearchIndex();
 		}
 	}
 
@@ -35,10 +31,13 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 */
 	protected function touchPhantomLog()
 	{
-		touch('/tmp/phantom-awooga.log');
+		if ($logPath = $this->getLogPath())
+		{
+			touch($logPath);
+		}
 	}
 
-	protected function startServer()
+	protected function forkToStartServer()
 	{
 		$pid = pcntl_fork();
 		if ($pid == -1)
@@ -56,33 +55,31 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
 			// to null. This in turn is used to start the PHP web server. We can't use pcntl_exec
 			// as that would prevent us from hiding stdout/stderr output - the web server is
 			// pretty verbose.
-			exec(
-				$this->getProjectRoot() . '/test/browser/scripts/server.sh 2> /dev/null'
-			);
+			$this->startServer();
 
 			// Exit to prevent PHPUnit thinking it should run again
 			exit();
 		}
 	}
 
-	protected function checkServer()
+	protected function startServer()
+	{
+		exec($this->getServerScriptPath() . ' 2> /dev/null');
+	}
+
+    protected function checkServer()
 	{
 		// Let's wait a litle for it to settle down
 		sleep(3);
 
 		// Check the web server
-		$response = file_get_contents(TestCase::DOMAIN . '/server-check');
+		$response = file_get_contents($this->getTestDomain() . '/server-check');
 		if ($response != 'OK')
 		{
 			throw new \Exception(
 				"Did not get expected result when checking the web server is up"
 			);
 		}
-	}
-
-	protected function removeSearchIndex()
-	{
-		system('rm -rf ' . $this->getProjectRoot() . '/filesystem/tmp/search-index');
 	}
 
 	/**
@@ -103,6 +100,45 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
 				}
 			}
 		}
+	}
+
+	/**
+	 * This must be overrided to determine when to start the web server (if at all)
+	 *
+	 * For example, if the user just runs their unit tests, they won't want a server to start
+	 * up - so here they can listen for a suite or test namespace part that indicates that
+	 * a web server is required.
+	 */
+	abstract protected function switchOnBySuiteName($name);
+
+	/**
+	 * Override this to change the test domain in use
+	 *
+	 * @return string
+	 */
+	protected function getTestDomain()
+	{
+		return 'http://127.0.0.1:8090';
+	}
+
+	/**
+	 * Override this to specify the PhantomJS logging path
+	 *
+	 * @return string
+	 */
+	protected function getLogPath()
+	{
+		return '/tmp/spiderling-phantom.log';
+	}
+
+	/**
+	 * Override this to specify a different shell script to start up the web server
+	 *
+	 * @return string
+	 */
+	protected function getServerScriptPath()
+	{
+		return $this->getProjectRoot() . '/test/browser/scripts/server.sh';
 	}
 
 	protected function getProjectRoot()

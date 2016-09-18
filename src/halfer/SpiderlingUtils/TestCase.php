@@ -19,8 +19,6 @@ use \Openbuildings\Spiderling\Driver_Phantomjs_Connection;
  */
 abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spiderling
 {
-	use \Awooga\Testing\BaseTestCase;
-
 	/**
 	 * Let's set add some logging here, to see why PhantomJS is flaky on Travis
 	 */
