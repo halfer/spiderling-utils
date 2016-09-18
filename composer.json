@@ -5,10 +5,11 @@
     "license":           "MIT",
     "homepage":          "https://github.com/halfer/spiderling-utils.git",
     "require": {
-        "php": ">=5.3,<8.0-DEV"
+        "php": ">=5.3,<8.0-DEV",
+        "openbuildings/phpunit-spiderling": "0.1.*"
     },
     "require-dev": {
-        "openbuildings/phpunit-spiderling": "0.1.*"
+        "phpunit/phpunit": "4.4.*"
     },
     "autoload": {
         "psr-4": { "halfer\\": "src/library/" }
