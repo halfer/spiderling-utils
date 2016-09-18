@@ -51,7 +51,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 		if ($return)
 		{
 			throw new \Exception("Can't find 'phantomjs' - does the PATH include it?");
-		}		
+		}
 	}
 
 	/**
