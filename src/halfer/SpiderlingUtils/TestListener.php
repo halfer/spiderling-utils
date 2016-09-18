@@ -69,12 +69,19 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 
     protected function checkServer()
 	{
+		// By default there is no server check
+		$url = $this->getCheckAliveUrl();
+		if (!$url)
+		{
+			return;
+		}
+
 		// Let's wait a litle for it to settle down
 		sleep(3);
 
 		// Check the web server
-		$response = file_get_contents($this->getTestDomain() . '/server-check');
-		if ($response != 'OK')
+		$response = file_get_contents($url);
+		if ($response != $this->getCheckAliveExpectedResponse())
 		{
 			throw new \Exception(
 				"Did not get expected result when checking the web server is up"
@@ -90,16 +97,26 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		if ($this->hasInitialised)
 		{
 			// Get pid from temp location
-			if (file_exists($filename = $this->getProjectRoot() . '/.server.pid'))
+			if (file_exists($filename = $this->getServerPidPath()))
 			{
 				$pid = (int) file_get_contents($filename);
 				if ($pid)
 				{
-					posix_kill($pid, SIGKILL);
+					$this->killProcessById($pid);
 					unlink($filename);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Override this if the posix functions are not available
+	 *
+	 * @param integer $pid
+	 */
+	protected function killProcessById($pid)
+	{
+		posix_kill($pid, SIGKILL);
 	}
 
 	/**
@@ -122,6 +139,28 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	}
 
 	/**
+	 * Returns a server URL
+	 *
+	 * @return string|false
+	 */
+	protected function getCheckAliveUrl()
+	{
+		return false;
+	}
+
+	/**
+	 * Returns the string that a server check should return
+	 *
+	 * (This is usually just in the test harness, and is not baked into the app under test).
+	 *
+	 * @return string
+	 */
+	protected function getCheckAliveExpectedResponse()
+	{
+		return 'OK';
+	}
+
+	/**
 	 * Override this to specify the PhantomJS logging path
 	 *
 	 * @return string
@@ -139,6 +178,11 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	protected function getServerScriptPath()
 	{
 		return $this->getProjectRoot() . '/test/browser/scripts/server.sh';
+	}
+
+	protected function getServerPidPath()
+	{
+		return $this->getProjectRoot() . '/.server.pid';
 	}
 
 	protected function getProjectRoot()
