@@ -9,5 +9,8 @@
     },
     "require-dev": {
         "openbuildings/phpunit-spiderling": "0.1.*"
+    },
+    "autoload": {
+        "psr-0": { "halfer\\SpiderlingUtils": "library/" }
     }
 }
