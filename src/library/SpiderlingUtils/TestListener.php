@@ -215,6 +215,14 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		return $this->getProjectRoot() . '/.server.pid';
 	}
 
+	/**
+	 * Gets the root path of this library
+	 *
+	 * Note that in a Composer context, this does not get the root of the client project,
+	 * just the root of this one.
+	 *
+	 * @return string
+	 */
 	protected function getProjectRoot()
 	{
 		return realpath(__DIR__ . '/../../..');
