@@ -11,6 +11,6 @@
         "openbuildings/phpunit-spiderling": "0.1.*"
     },
     "autoload": {
-        "psr-0": { "halfer\\SpiderlingUtils": "src/library" }
+        "psr-0": { "halfer\\SpiderlingUtils\\": "src/library" }
     }
 }
