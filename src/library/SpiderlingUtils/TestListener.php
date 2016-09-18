@@ -64,7 +64,16 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 
 	protected function startServer()
 	{
-		exec($this->getServerScriptPath() . ' 2> /dev/null');
+		$scriptPath = $this->getServerScriptPath();
+		$output = $return = null;
+		exec($scriptPath . ' 2> /dev/null', $output, $return);
+
+		if ($return)
+		{
+			throw new \Exception(
+				sprintf("Failure when running server script `%s`", $scriptPath)
+			);
+		}
 	}
 
     protected function checkServer()
