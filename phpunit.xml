@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test/bootstrap.php">
+	<testsuites>
+		<testsuite name="browser">
+			<directory>test/browser/tests</directory>
+		</testsuite>
+	</testsuites>
+	<listeners>
+		<listener
+			class="\halfer\SpiderlingUtils\Demo\TestListener"
+			file="test/browser/classes/TestListener.php"
+		/>
+	</listeners>
+</phpunit>
