@@ -208,11 +208,11 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	}
 
 	/**
-	 * @todo This is now wrong, since it is in the vendor folder - use absolute tmp path instead?
+	 * Fetches a writeable path location suitable for writing PIDs
 	 */
 	protected function getServerPidPath()
 	{
-		return $this->getProjectRoot() . '/.server.pid';
+		return '/tmp/spiderling-phantom.server.pid';
 	}
 
 	/**
