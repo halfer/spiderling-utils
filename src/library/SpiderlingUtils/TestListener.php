@@ -19,6 +19,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	{
 		if (!$this->hasInitialised)
 		{
+			$this->checkPhpExtensions();
 			$this->touchPhantomLog();
 			$this->forkToStartServer();
 			$this->hasInitialised = true;
@@ -95,6 +96,23 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			throw new \Exception(
 				"Did not get expected result when checking the web server is up"
 			);
+		}
+	}
+
+	protected function checkPhpExtensions()
+	{
+		// This is used to fork
+		if (!extension_loaded('pcntl'))
+		{
+			echo "Extension pcntl not loaded";
+			exit(1);
+		}
+
+		// This is used to kill processes
+		if (!extension_loaded('posix'))
+		{
+			echo "Extension posix not loaded";
+			exit(1);
 		}
 	}
 
