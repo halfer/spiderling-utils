@@ -1,9 +1,9 @@
 {
-    "name":              "halfer/SpiderlingUtils",
+    "name":              "halfer/spiderling-utils",
     "description":       "A PHPUnit/Spiderling utility to use Phantom in a headless test environment",
     "type":              "library",
     "license":           "MIT",
-    "homepage":          "https://github.com/halfer/SpiderlingUtils",
+    "homepage":          "https://github.com/halfer/spiderling-utils.git",
     "require": {
         "php": ">=5.3,<8.0-DEV"
     },
