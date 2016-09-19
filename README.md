@@ -45,7 +45,6 @@ Create a class to inherit from SpiderlingUtils\TestListener, and that will becom
 README to do
 ---
 
-* Add a simple example in a tests folder in SpiderlingUtils itself
 * List the configuration methods for each class
 * Show how the listener can be wired into phpunit.xml
 * Add license file
