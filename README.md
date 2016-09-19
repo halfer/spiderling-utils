@@ -38,11 +38,11 @@ Then issue a `composer update` in the usual way.
 Usage
 ---
 
-Create an abstract class to inherit from SpiderlingUtils\TestCase, and that will become your test case parent.
+Create an abstract class to inherit from `SpiderlingUtils\TestCase`, and that will become your test case parent.
 
 	TODO Example here, indicate what is required/mandatory
 
-Create a class to inherit from SpiderlingUtils\TestListener, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+Create a class to inherit from `SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
 
 	TODO Example here, indicate what is required/mandatory
 
@@ -54,6 +54,15 @@ web server to your app, making small interventions to:
 * Answer a special URL to detect if the system is up
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
+
+Status
+---
+
+This library is presently an **early alpha**, which I am using in a couple of personal projects. It is
+subject to change, but if anyone wishes to use it as it stands, I am happy to tag a release.
+
+I wonder whether, if developers already have their test class inheritance trees set up already,
+whether the `TestCase` class would be better as a trait.
 
 README to do
 ---
