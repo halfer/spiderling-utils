@@ -38,7 +38,7 @@ Then issue a `composer update` in the usual way.
 Usage
 ---
 
-Create an abstract class to inherit from `SpiderlingUtils\TestCase`, and that will become your test case parent.
+Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and that will become your test case parent.
 
 	class TestCase extends \halfer\SpiderlingUtils\TestCase
 	{
@@ -80,7 +80,7 @@ Create an abstract class to inherit from `SpiderlingUtils\TestCase`, and that wi
 		}
 	}
 
-Create a class to inherit from `SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
 
 	class TestListener extends \halfer\SpiderlingUtils\TestListener
 	{
