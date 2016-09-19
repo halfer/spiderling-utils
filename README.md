@@ -95,6 +95,16 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		}
 
 		/**
+		 * Optional, only if you want to override the default test domain
+		 *
+		 * (Should match what is specified in the TestCase class)
+		 */
+		protected function getTestDomain()
+		{
+			return 'http://127.0.0.1:10000';
+		}
+
+		/**
 		 * Optional, return a test URL if your router/app supports a test method
 		 */
 		protected function getCheckAliveUrl()
@@ -114,6 +124,8 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		 * Optional, only required if you want to override the default Phantom log path
 		 *
 		 * Use null/false here to turn off logging entirely
+		 *
+		 * (Should match what is specified in the TestCase class)
 		 */
 		protected function getLogPath()
 		{
@@ -188,5 +200,5 @@ README to do
 * Add build icons in the GitHub README
 * Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
 * Show how the listener can be wired into phpunit.xml
-* Log file path is specified in both classes, can we centralise this?
+* Log file path and test domain are specified in both classes, can we centralise these?
 * Add MIT license file
