@@ -40,11 +40,25 @@ Usage
 
 Create an abstract class to inherit from SpiderlingUtils\TestCase, and that will become your test case parent.
 
+	TODO Example here, indicate what is required/mandatory
+
 Create a class to inherit from SpiderlingUtils\TestListener, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+
+	TODO Example here, indicate what is required/mandatory
+
+Now, you'll need to create a simple routing file. The purpose of this is to connect the PHP
+web server to your app, making small interventions to:
+
+* Set your app's environment to a test mode if you wish;
+* Detect static file requests so they can be passed straight to the web server;
+* Answer a special URL to detect if the system is up
+
+The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
 
 README to do
 ---
 
+* Pass parameters to the server script (router path, web root path)
 * Add test run instructions
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
