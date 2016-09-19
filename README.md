@@ -151,6 +151,11 @@ Writing browser tests
 
 There are plenty of examples on searching for DOM elements using CSS, retrieving text items, filling in controls, clicking on buttons, submitting forms, etc. See [the manual here](https://github.com/OpenBuildings/spiderling).
 
+Using Spiderling with Travis
+---
+
+PHPUnit Spiderling works just fine on Travis, see [an example project and configuration here](https://github.com/halfer/awooga-app/blob/master/.travis.yml).
+
 Requirements
 ---
 
