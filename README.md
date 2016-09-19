@@ -55,20 +55,32 @@ web server to your app, making small interventions to:
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
 
+Requirements
+---
+
+The PHP requirement for this system is determined by the highest minimum requirement of its dependencies. Presently that is `symfony/css-selector`, which requires 5.5.9.
+
+In terms of operating system, I am presenty testing on Ubuntu 14.04, and would expect any modern GNU/Linux distro to be fine. OS X should be fine too. Some work would be required on Windows, not least to replace the shell script with something else, but I think it could be persuaded to work!
+
+Self tests
+---
+
+To run the internal tests, enter this on your console:
+
+    composer install
+    PATH=$PATH:`pwd`/vendor/bin ./vendor/bin/phpunit
+
 Status
 ---
 
-This library is presently an **early alpha**, which I am using in a couple of personal projects. It is
-subject to change, but if anyone wishes to use it as it stands, I am happy to tag a release.
+This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I am happy to tag a release.
 
-I wonder whether, if developers already have their test class inheritance trees set up already,
-whether the `TestCase` class would be better as a trait.
+I wonder whether, if developers already have their test class inheritance trees set up already, whether the `TestCase` class would be better as a trait.
 
 README to do
 ---
 
 * Pass parameters to the server script (router path, web root path)
-* Add test run instructions
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
 * Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
