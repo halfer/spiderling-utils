@@ -40,11 +40,102 @@ Usage
 
 Create an abstract class to inherit from `SpiderlingUtils\TestCase`, and that will become your test case parent.
 
-	TODO Example here, indicate what is required/mandatory
+	class TestCase extends \halfer\SpiderlingUtils\TestCase
+	{
+		/**
+		 * Optional, only if you want to override the default test domain
+		 */
+		protected function getTestDomain()
+		{
+			return 'http://127.0.0.1:10000';
+		}
+
+		/**
+		 * Optional, only required if you want to override the default Phantom log path
+		 *
+		 * Use null/false here to turn off logging entirely
+		 */
+		protected function getLogPath()
+		{
+			return '/path/to/my/phantom.log';
+		}
+
+		/**
+		 * Optional, only override if you want to change the location of the PNG screenshot output
+		 **/
+		protected function getScreenshotRawPath()
+		{
+			return '/path/to/my/spiderling-screenshot.png';
+		}
+
+		/**
+		 * Optional, only override if you want to change the location of base64 screenshot output
+		 *
+		 * This is useful on headless build servers, where dumping the screenshot output to stdout
+		 * is the easiest way to get it to your local machine.
+		 **/
+		protected function getScreenshotEncodedPath()
+		{
+			return '/path/to/my/spiderling-base64-screenshot.txt';
+		}
+	}
 
 Create a class to inherit from `SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
 
-	TODO Example here, indicate what is required/mandatory
+	class TestListener extends \halfer\SpiderlingUtils\TestListener
+	{
+		/**
+		 * Required, return true if you recognise the test suite name or namespace
+		 *
+		 * Returning true turns on the internal web server
+		 **/
+		protected function switchOnBySuiteName($name)
+		{
+			return (strpos($name, 'Foo\\Baar\\') !== false);
+		}
+
+		/**
+		 * Optional, return a test URL if your router/app supports a test method
+		 */
+		protected function getCheckAliveUrl()
+		{
+			return $this->getTestDomain() . '/server-check';
+		}
+
+		/**
+		 * Optional, return a string for the check-alive feature (defaults to "OK")
+		 */
+		protected function getCheckAliveExpectedResponse()
+		{
+			return 'Working';
+		}
+
+		/**
+		 * Optional, only required if you want to override the default Phantom log path
+		 *
+		 * Use null/false here to turn off logging entirely
+		 */
+		protected function getLogPath()
+		{
+			return '/path/to/my/phantom.log';
+		}
+
+		/**
+		 * Optional, override this if you want to point to a different web server start script
+		 */
+		protected function getServerScriptPath()
+		{
+			return $this->getProjectRoot() . '/path/to/my/server.sh';
+		}
+
+		/**
+		 * Optional, override this if you want to change the location of the server PID file
+		 */
+		protected function getServerPidPath()
+		{
+			return '/tmp/spiderling-phantom.server.pid';
+		}
+	}
 
 Now, you'll need to create a simple routing file. The purpose of this is to connect the PHP
 web server to your app, making small interventions to:
@@ -84,6 +175,6 @@ README to do
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
 * Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
-* List the configuration methods for each class
 * Show how the listener can be wired into phpunit.xml
+* Log file path is specified in both classes, can we centralise this?
 * Add MIT license file
