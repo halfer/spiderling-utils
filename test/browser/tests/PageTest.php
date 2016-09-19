@@ -4,8 +4,16 @@ namespace halfer\SpiderlingUtils\Demo;
 
 class PageTest extends TestCase
 {
-	public function testSomething()
+	/**
+	 * Checks that text injected by JavaScript is working (and hence that PhantomJS is working)
+	 *
+	 * @driver phantomjs
+	 */
+	public function testJavaScriptPhrase()
 	{
-		$this->assertTrue(true);
+		$element = $this->
+			visit($this->getTestDomain())->
+			find('#target');
+		$this->assertEquals('Event successful', $element->text());
 	}
 }
