@@ -9,9 +9,18 @@
         "openbuildings/phpunit-spiderling": "0.1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.4.*"
+        "phpunit/phpunit": "4.4.*",
+        "jakoch/phantomjs-installer": "1.9.8"
     },
     "autoload": {
         "psr-4": { "halfer\\": "src/library/" }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
     }
 }
