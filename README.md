@@ -45,6 +45,10 @@ Create a class to inherit from SpiderlingUtils\TestListener, and that will becom
 README to do
 ---
 
+* Add test run instructions
+* Create a Travis build to show it working
+* Add build icons in the GitHub README
+* Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
 * List the configuration methods for each class
 * Show how the listener can be wired into phpunit.xml
-* Add license file
+* Add MIT license file
