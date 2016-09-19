@@ -173,6 +173,7 @@ README to do
 
 * Pass parameters to the server script (router path, web root path)
 * Move the PID responsibility from the router to the server script, add a param for that too
+* Make router script optional
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
 * Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
