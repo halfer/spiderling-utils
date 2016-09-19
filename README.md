@@ -146,6 +146,11 @@ web server to your app, making small interventions to:
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
 
+Writing browser tests
+---
+
+There are plenty of examples on searching for DOM elements using CSS, retrieving text items, filling in controls, clicking on buttons, submitting forms, etc. See [the manual here](https://github.com/OpenBuildings/spiderling).
+
 Requirements
 ---
 
