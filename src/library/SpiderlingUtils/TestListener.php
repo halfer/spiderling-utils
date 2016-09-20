@@ -67,8 +67,8 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	{
 		// Assemble parameters
 		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
-		// @todo Fetch the docroot and router locations from overridable methods
-		$docRoot = escapeshellarg('test/browser/docroot');
+		$docRoot = escapeshellarg($this->getDocRoot());
+		// @todo Fetch the router location from overridable method
 		$router = escapeshellarg('test/browser/scripts/router.php');
 		$params = "$domain $docRoot $router";
 
@@ -166,6 +166,11 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	abstract protected function switchOnBySuiteName($name);
 
 	/**
+	 * This must be overrided to provide the path of the web application's docroot
+	 */
+	abstract protected function getDocRoot();
+
+	/**
 	 * Override this to change the test domain in use
 	 *
 	 * @return string
@@ -229,11 +234,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 * Gets the root path of this library
 	 *
 	 * Note that in a Composer context, this does not get the root of the client project,
-	 * just the root of this one.
+	 * just the root of this one. I've therefore made this private, so child classes implement
+	 * something more suitable for themselves.
 	 *
 	 * @return string
 	 */
-	protected function getProjectRoot()
+	private function getProjectRoot()
 	{
 		return realpath(__DIR__ . '/../../..');
 	}

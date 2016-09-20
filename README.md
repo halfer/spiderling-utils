@@ -95,6 +95,16 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		}
 
 		/**
+		 * Required, supplies the location of the document root of the app
+		 *
+		 * (Either a full path, or relative to the shell server script will work fine)
+		 */
+		protected function getDocRoot()
+		{
+			return realpath(__DIR__ . '/../../../web');
+		}
+
+		/**
 		 * Optional, only if you want to override the default test domain
 		 *
 		 * (Should match what is specified in the TestCase class)
@@ -193,7 +203,7 @@ I wonder whether, if developers already have their test class inheritance trees 
 README to do
 ---
 
-* Pass parameters to the server script (router path, web root path)
+* Pass parameters to the server script (router path)
 * Move the PID responsibility from the router to the server script, add a param for that too
 * Make router script optional
 * Create a Travis build to show it working
