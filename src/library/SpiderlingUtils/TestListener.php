@@ -65,9 +65,19 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 
 	protected function startServer()
 	{
+		// Assemble parameters
+		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
+		// @todo Fetch the docroot and router locations from overridable methods
+		$docRoot = escapeshellarg('test/browser/docroot');
+		$router = escapeshellarg('test/browser/scripts/router.php');
+		$params = "$domain $docRoot $router";
+
 		$scriptPath = $this->getServerScriptPath();
+		$redirect = '2> /dev/null';
+		$command = "$scriptPath $params $redirect";
+
 		$output = $return = null;
-		exec($scriptPath . ' 2> /dev/null', $output, $return);
+		exec($command, $output, $return);
 
 		if ($return)
 		{

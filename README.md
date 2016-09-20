@@ -198,7 +198,8 @@ README to do
 * Make router script optional
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
-* Check that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
+* Test that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
+* Test that router and non-router variants work fine
 * Show how the listener can be wired into phpunit.xml
 * Log file path and test domain are specified in both classes, can we centralise these?
 * Add MIT license file

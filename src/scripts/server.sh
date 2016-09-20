@@ -1,18 +1,21 @@
 #!/bin/bash
 #
-# @todo Need to pass router script path in as an argument
-# @todo Need to pass web root path in as an argument
+# Parameters:
+#
+# $1 = Web server address (required)
+# $2 = Document root (required)
+# $3 = Router script (optional)
 
 # Save pwd and then change dir to the script location
 STARTDIR=`pwd`
 cd `dirname $0`/../..
 
-# Start up built-in web server
-php \
-	-S 127.0.0.1:8090 \
-	-t test/browser/docroot \
-	test/browser/scripts/router.php \
-	2> /dev/null
+# Start up built-in web server without router script
+if [ "$3" = "" ]; then
+	php -S $1 -t $2      2> /dev/null
+else
+	php -S $1 -t $2 $3   2> /dev/null
+fi;
 
 # Go back to original dir
 cd $STARTDIR
