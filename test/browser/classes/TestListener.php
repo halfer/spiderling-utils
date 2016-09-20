@@ -18,6 +18,14 @@ class TestListener extends \halfer\SpiderlingUtils\TestListener
 	}
 
 	/**
+	 * Enable the use of a router script by supplying a path
+	 */
+	protected function getRouterScriptPath()
+	{
+		return realpath(__DIR__ . '/../../../test/browser/scripts/router.php');
+	}
+
+	/**
 	 * Turn on check to ensure the web app is alive and minimally working
 	 *
 	 * @return string

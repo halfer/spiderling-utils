@@ -68,13 +68,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		// Assemble parameters
 		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
 		$docRoot = escapeshellarg($this->getDocRoot());
-		// @todo Fetch the router location from overridable method
-		$router = escapeshellarg('test/browser/scripts/router.php');
+		$router = escapeshellarg($this->getRouterScriptPath());
 		$params = "$domain $docRoot $router";
 
 		$scriptPath = $this->getServerScriptPath();
 		$redirect = '2> /dev/null';
-		$command = "$scriptPath $params $redirect";
+		$command = trim("$scriptPath $params $redirect");
 
 		$output = $return = null;
 		exec($command, $output, $return);
@@ -178,6 +177,16 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	protected function getTestDomain()
 	{
 		return 'http://127.0.0.1:8090';
+	}
+
+	/**
+	 * Override this to enable the routing script feature
+	 *
+	 * @return string|boolean
+	 */
+	protected function getRouterScriptPath()
+	{
+		return false;
 	}
 
 	/**

@@ -105,6 +105,17 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		}
 
 		/**
+		 * Optional, point to a router script if required (defaults to off)
+		 *
+		 * (The check-alive feature may need this, unless the web app under test contains its
+		 * own endpoint for the same purpose).
+		 */
+		protected function getRouterScriptPath()
+		{
+			return realpath(__DIR__ . '/../../../test/scripts/router.php');
+		}
+
+		/**
 		 * Optional, only if you want to override the default test domain
 		 *
 		 * (Should match what is specified in the TestCase class)
@@ -203,9 +214,8 @@ I wonder whether, if developers already have their test class inheritance trees 
 README to do
 ---
 
-* Pass parameters to the server script (router path)
+* Escape the server script path so it works with spaces
 * Move the PID responsibility from the router to the server script, add a param for that too
-* Make router script optional
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
 * Test that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
