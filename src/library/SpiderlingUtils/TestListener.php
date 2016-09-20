@@ -69,7 +69,8 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
 		$docRoot = escapeshellarg($this->getDocRoot());
 		$router = escapeshellarg($this->getRouterScriptPath());
-		$params = "$domain $docRoot $router";
+		$pidPath = escapeshellarg($this->getServerPidPath());
+		$params = "$domain $docRoot $pidPath $router";
 
 		// Escape any spaces for the command
 		$scriptPath = '"' . $this->getServerScriptPath() . '"';

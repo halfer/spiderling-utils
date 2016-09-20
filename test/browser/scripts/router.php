@@ -7,9 +7,6 @@
  
 $root = realpath(__DIR__ . '/../../..');
 
-// Save our process ID for later termination
-file_put_contents('/tmp/spiderling-phantom.server.pid', getmypid());
-
 if (preg_match('#^/assets/#', $_SERVER["REQUEST_URI"]))
 {
 	// Let static assets fall through to the default server
