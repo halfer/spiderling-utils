@@ -214,7 +214,6 @@ I wonder whether, if developers already have their test class inheritance trees 
 README to do
 ---
 
-* Escape the server script path so it works with spaces
 * Move the PID responsibility from the router to the server script, add a param for that too
 * Detect if the server start script suffers an error
 * Create a Travis build to show it working
