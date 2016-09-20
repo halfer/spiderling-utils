@@ -170,12 +170,12 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		}
 	}
 
-Now, you'll need to create a simple routing file. The purpose of this is to connect the PHP
+If you wish, you can create a simple routing PHP script. The purpose of this is to connect the
 web server to your app, making small interventions to:
 
 * Set your app's environment to a test mode if you wish;
-* Detect static file requests so they can be passed straight to the web server;
 * Answer a special URL to detect if the system is up
+* Detect static file requests so they can be passed straight to the web server;
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
 
@@ -214,7 +214,6 @@ I wonder whether, if developers already have their test class inheritance trees 
 README to do
 ---
 
-* Move the PID responsibility from the router to the server script, add a param for that too
 * Detect if the server start script suffers an error
 * Create a Travis build to show it working
 * Add build icons in the GitHub README
