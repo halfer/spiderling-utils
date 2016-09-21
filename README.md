@@ -217,7 +217,6 @@ README to do
 ---
 
 * Detect if the server start script suffers an error
-* Test that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
 * Test that router and non-router variants work fine
 * Show how the listener can be wired into phpunit.xml
 * Log file path and test domain are specified in both classes, can we centralise these?
