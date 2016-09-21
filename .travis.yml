@@ -8,7 +8,7 @@ notifications:
   email: false
 before_script:
   - composer self-update
-  - COMPOSER=composer.travis.json composer install
+  - composer install
   - export PATH=`pwd`/vendor/bin:$PATH
 script:
   - phpunit
