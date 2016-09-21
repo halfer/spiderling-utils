@@ -82,7 +82,9 @@ Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and
 		}
 	}
 
-Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your phpunit.xml. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your `phpunit.xml`. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+
+You must also implement`getDocRoot()`, which points to your web server root folder (either using an absolute path, or one relative to the web server start script).
 
 	class TestListener extends \halfer\SpiderlingUtils\TestListener
 	{
@@ -172,6 +174,8 @@ Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that 
 		}
 	}
 
+Spiderling Utils contains its own working example of a configuration file featuring a listener, [see here](https://github.com/halfer/spiderling-utils/blob/master/phpunit.xml).
+
 If you wish, you can create a simple routing PHP script. The purpose of this is to connect the
 web server to your app, making small interventions to:
 
@@ -189,7 +193,7 @@ There are plenty of examples on searching for DOM elements using CSS, retrieving
 Using Spiderling with Travis
 ---
 
-PHPUnit Spiderling works just fine on Travis, see [an example project and configuration here](https://github.com/halfer/awooga-app/blob/master/.travis.yml).
+PHPUnit Spiderling works just fine on Travis, see [an example configuration here](https://github.com/halfer/spiderling-utils/blob/master/.travis.yml).
 
 Requirements
 ---
@@ -218,6 +222,5 @@ README to do
 
 * Detect if the server start script suffers an error
 * Test that router and non-router variants work fine
-* Show how the listener can be wired into phpunit.xml
 * Log file path and test domain are specified in both classes, can we centralise these?
 * Add MIT license file
