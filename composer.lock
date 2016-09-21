@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c1dfafe334133fdcf0c027314b09e9e",
+    "content-hash": "e1461492a72e3fbec90775f6e0a75f65",
     "packages": [
         {
             "name": "openbuildings/environment-backup",
@@ -240,19 +240,20 @@
         },
         {
             "name": "jakoch/phantomjs-installer",
-            "version": "1.9.8",
+            "version": "2.1.1-p06",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakoch/phantomjs-installer.git",
-                "reference": "fd6459094404f698a4edb9609e5e8c55c6418824"
+                "reference": "26f870052263c00d09103928ad39c935108f51d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/fd6459094404f698a4edb9609e5e8c55c6418824",
-                "reference": "fd6459094404f698a4edb9609e5e8c55c6418824",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/26f870052263c00d09103928ad39c935108f51d4",
+                "reference": "26f870052263c00d09103928ad39c935108f51d4",
                 "shasum": ""
             },
             "require": {
+                "ext-bz2": "*",
                 "ext-openssl": "*"
             },
             "type": "custom-installer",
@@ -277,7 +278,7 @@
                 "headless",
                 "phantomjs"
             ],
-            "time": "2014-12-05 17:57:27"
+            "time": "2016-08-09 10:14:29"
         },
         {
             "name": "phpunit/php-code-coverage",
