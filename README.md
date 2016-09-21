@@ -1,6 +1,8 @@
 Spiderling Utils
 ===
 
+[![Build Status](https://api.travis-ci.org/halfer/spiderling-utils.svg)](https://travis-ci.org/halfer/spiderling-utils)
+
 Introduction
 ---
 
@@ -215,8 +217,6 @@ README to do
 ---
 
 * Detect if the server start script suffers an error
-* Create a Travis build to show it working
-* Add build icons in the GitHub README
 * Test that a build without `require-dev` deps does not trigger post-install scripts (which would fail)
 * Test that router and non-router variants work fine
 * Show how the listener can be wired into phpunit.xml
