@@ -221,8 +221,8 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	/**
 	 * Adds a server to the start-up list
 	 *
-	 * @todo Swap the exception for a more specific one
-	 * @todo Add a test to prove this works
+	 * @todo Swap the exceptions for a more specific one
+	 * @todo Add a test to prove the exceptions work
 	 *
 	 * @param \halfer\SpiderlingUtils\Server $server
 	 */
@@ -236,6 +236,13 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			{
 				throw new Exception(
 					"Clashing server URIs detected"
+				);
+			}
+
+			if ($server->getServerPidPath() === $existingServer->getServerPidPath())
+			{
+				throw new Exception(
+					"Clashing server PID paths detected"
 				);
 			}
 		}
