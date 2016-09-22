@@ -166,23 +166,31 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	{
 		if ($this->hasInitialised)
 		{
-			// Get pid from temp location
-			if (file_exists($filename = $this->getServerPidPath()))
+			foreach ($this->servers as $server)
 			{
-				$pid = (int) file_get_contents($filename);
-				if ($pid)
+				$this->destroyServer($server);
+			}
+		}
+	}
+
+	protected function destroyServer(Server $server)
+	{
+		// Get pid from temp location
+		if (file_exists($filename = $server->getServerPidPath()))
+		{
+			$pid = (int) file_get_contents($filename);
+			if ($pid)
+			{
+				// The PID we have is for the server launch script, not the server itself,
+				// so we need to search for the immediate child of the script
+				$return = null;
+				exec("pgrep -P $pid", $return);
+				$serverPid = isset($return[0]) ? (int) $return[0] : null;
+				if ($serverPid)
 				{
-					// The PID we have is for the server launch script, not the server itself,
-					// so we need to search for the immediate child of the script
-					$return = null;
-					exec("pgrep -P $pid", $return);
-					$serverPid = isset($return[0]) ? (int) $return[0] : null;
-					if ($serverPid)
-					{
-						$this->killProcessById($serverPid);
-					}
-					unlink($filename);
+					$this->killProcessById($serverPid);
 				}
+				unlink($filename);
 			}
 		}
 	}
