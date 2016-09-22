@@ -9,7 +9,7 @@
         "openbuildings/phpunit-spiderling": "0.1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.4.*",
+        "phpunit/phpunit": "4.8.*",
         "jakoch/phantomjs-installer": "2.1.1-p06"
     },
     "autoload": {
