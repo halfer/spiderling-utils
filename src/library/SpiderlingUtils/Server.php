@@ -33,6 +33,11 @@ class Server
 		$this->serverScriptPath = $this->getProjectRoot() . '/src/scripts/server.sh';
 	}
 
+	public function getDocRoot()
+	{
+		return $this->docRoot;
+	}
+
 	public function getServerUri()
 	{
 		return $this->serverUri;

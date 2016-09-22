@@ -74,14 +74,14 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	protected function startServer(Server $server)
 	{
 		// Assemble parameters
-		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
-		$docRoot = escapeshellarg($this->getDocRoot());
-		$router = escapeshellarg($this->getRouterScriptPath());
-		$pidPath = escapeshellarg($this->getServerPidPath());
+		$domain = escapeshellarg(str_replace('http://', '', $server->getServerUri()));
+		$docRoot = escapeshellarg($server->getDocRoot());
+		$router = escapeshellarg($server->getRouterScriptPath());
+		$pidPath = escapeshellarg($server->getServerPidPath());
 		$params = "$domain $docRoot $pidPath $router";
 
 		// Escape any spaces for the command
-		$scriptPath = '"' . $this->getServerScriptPath() . '"';
+		$scriptPath = '"' . $server->getServerScriptPath() . '"';
 		$command = escapeshellcmd(trim("$scriptPath $params")) . ' 2> /dev/null';
 
 		$output = $return = null;
@@ -283,6 +283,13 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		return '/tmp/spiderling-phantom.server.pid';
 	}
 
+	/**
+	 * Adds a server to the start-up list
+	 *
+	 * @todo Throw an exception if the URI already exists in an existing server
+	 *
+	 * @param \halfer\SpiderlingUtils\Server $server
+	 */
 	protected function addServer(Server $server)
 	{
 		$this->servers[] = $server;
