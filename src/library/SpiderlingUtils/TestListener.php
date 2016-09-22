@@ -56,6 +56,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			// to null. This in turn is used to start the PHP web server. We can't use pcntl_exec
 			// as that would prevent us from hiding stdout/stderr output - the web server is
 			// pretty verbose.
+			$this->markAsChildProcess();
 			$this->startServer();
 
 			// Exit to prevent PHPUnit thinking it should run again
@@ -87,7 +88,32 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		}
 	}
 
-    protected function checkServer()
+	/**
+	 * Marks a process as a forked child
+	 *
+	 * @global boolean $isChildProcess
+	 */
+	protected function markAsChildProcess()
+	{
+		global $isChildProcess;
+
+		$isChildProcess = true;
+	}
+
+	/**
+	 * Retrieves whether a process is a forked child
+	 *
+	 * @global boolean $isChildProcess
+	 * @return boolean
+	 */
+	protected function isChildProcess()
+	{
+		global $isChildProcess;
+
+		return isset($isChildProcess) && $isChildProcess;
+	}
+
+	protected function checkServer()
 	{
 		// By default there is no server check
 		$url = $this->getCheckAliveUrl();
