@@ -58,8 +58,22 @@ class Server
 		return $this->routerScriptPath;
 	}
 
+	/**
+	 * Resets the router script path (false turns off the feature)
+	 *
+	 * @todo Use a more specific exception type
+	 *
+	 * @param string $routerScriptPath
+	 */
 	public function setRouterScriptPath($routerScriptPath)
 	{
+		if (!file_exists($routerScriptPath))
+		{
+			throw new \Exception(
+				"Router script path does not exist"
+			);
+		}
+
 		$this->routerScriptPath = $routerScriptPath;
 	}
 
@@ -122,8 +136,22 @@ class Server
 		return $this->serverScriptPath;
 	}
 
+	/**
+	 * Sets the server start-up script path
+	 *
+	 * @todo Use a more specific exception type
+	 *
+	 * @param string $serverScriptPath
+	 */
 	public function setServerScriptPath($serverScriptPath)
 	{
+		if (!file_exists($serverScriptPath))
+		{
+			throw new \Exception(
+				"Server start-up script path does not exist"
+			);
+		}
+
 		$this->serverScriptPath = $serverScriptPath;
 	}
 
