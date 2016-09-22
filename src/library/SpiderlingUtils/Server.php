@@ -48,6 +48,11 @@ class Server
 		$this->serverUri = $serverUri;
 	}
 
+	/**
+	 * Returns the location of the routing script (defaults to false/off)
+	 *
+	 * @return string|boolean
+	 */
 	public function getRouterScriptPath()
 	{
 		return $this->routerScriptPath;
@@ -58,9 +63,16 @@ class Server
 		$this->routerScriptPath = $routerScriptPath;
 	}
 
+	/**
+	 * Returns a check-alive URI
+	 *
+	 * @return string|false
+	 */
 	public function getCheckAliveUri()
 	{
-		return $serverUri . '/' . $this->checkAliveUri;
+		return $this->checkAliveUri ?
+			$this->serverUri . $this->checkAliveUri :
+			false;
 	}
 
 	public function setCheckAliveUri($checkAliveUri)
@@ -68,6 +80,13 @@ class Server
 		$this->checkAliveUri = $checkAliveUri;
 	}
 
+	/**
+	 * Returns the string that a server check should return
+	 *
+	 * (This is usually just in the test harness, and is not baked into the app under test).
+	 *
+	 * @return string
+	 */
 	public function getCheckAliveExpectedResponse()
 	{
 		return $this->expectedResponse;
@@ -78,6 +97,11 @@ class Server
 		$this->expectedResponse = $expectedResponse;
 	}
 
+	/**
+	 * Fetches the PhantomJS logging path
+	 *
+	 * @return string
+	 */
 	public function getLogPath()
 	{
 		return $this->logPath;
@@ -88,6 +112,11 @@ class Server
 		$this->logPath = $logPath;
 	}
 
+	/**
+	 * Specifies a different shell script to start up the web server
+	 *
+	 * @return string
+	 */
 	public function getServerScriptPath()
 	{
 		return $this->serverScriptPath;
@@ -98,6 +127,9 @@ class Server
 		$this->serverScriptPath = $serverScriptPath;
 	}
 
+	/**
+	 * Fetches a writeable path location suitable for writing PIDs
+	 */
 	public function getServerPidPath()
 	{
 		return $this->serverPidPath;

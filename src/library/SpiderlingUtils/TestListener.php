@@ -21,25 +21,27 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		if (!$this->hasInitialised)
 		{
 			$this->checkPhpExtensions();
-			$this->touchPhantomLog();
 			$this->setupServers();
 
+			/* @var $server Server */
 			foreach ($this->servers as $server)
 			{
+				$this->touchPhantomLog($server);
 				$this->forkToStartServer($server);
+				$this->checkServer($server);
 			}
 
+			// This need not be a property of Servers - they are either all up or not
 			$this->hasInitialised = true;
-			$this->checkServer();
 		}
 	}
 
 	/**
 	 * Create a new log file for PhantomJS, mainly useful for Travis
 	 */
-	protected function touchPhantomLog()
+	protected function touchPhantomLog(Server $server)
 	{
-		if ($logPath = $this->getLogPath())
+		if ($logPath = $server->getLogPath())
 		{
 			touch($logPath);
 		}
@@ -120,11 +122,11 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		return isset($isChildProcess) && $isChildProcess;
 	}
 
-	protected function checkServer()
+	protected function checkServer(Server $server)
 	{
 		// By default there is no server check
-		$url = $this->getCheckAliveUrl();
-		if (!$url)
+		$uri = $server->getCheckAliveUri();
+		if (!$uri)
 		{
 			return;
 		}
@@ -133,8 +135,8 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		sleep(3);
 
 		// Check the web server
-		$response = file_get_contents($url);
-		if ($response != $this->getCheckAliveExpectedResponse())
+		$response = file_get_contents($uri);
+		if ($response != $server->getCheckAliveExpectedResponse())
 		{
 			throw new \Exception(
 				"Did not get expected result when checking the web server is up"
@@ -214,82 +216,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 */
 	abstract protected function switchOnBySuiteName($name);
 
-	/**
-	 * This must be overrided to provide the path of the web application's docroot
-	 */
-	abstract protected function getDocRoot();
-
 	abstract protected function setupServers();
-
-	/**
-	 * Override this to change the test domain in use
-	 *
-	 * @return string
-	 */
-	protected function getTestDomain()
-	{
-		return 'http://127.0.0.1:8090';
-	}
-
-	/**
-	 * Override this to enable the routing script feature
-	 *
-	 * @return string|boolean
-	 */
-	protected function getRouterScriptPath()
-	{
-		return false;
-	}
-
-	/**
-	 * Returns a server URL
-	 *
-	 * @return string|false
-	 */
-	protected function getCheckAliveUrl()
-	{
-		return false;
-	}
-
-	/**
-	 * Returns the string that a server check should return
-	 *
-	 * (This is usually just in the test harness, and is not baked into the app under test).
-	 *
-	 * @return string
-	 */
-	protected function getCheckAliveExpectedResponse()
-	{
-		return 'OK';
-	}
-
-	/**
-	 * Override this to specify the PhantomJS logging path
-	 *
-	 * @return string
-	 */
-	protected function getLogPath()
-	{
-		return '/tmp/spiderling-phantom.log';
-	}
-
-	/**
-	 * Override this to specify a different shell script to start up the web server
-	 *
-	 * @return string
-	 */
-	protected function getServerScriptPath()
-	{
-		return $this->getProjectRoot() . '/src/scripts/server.sh';
-	}
-
-	/**
-	 * Fetches a writeable path location suitable for writing PIDs
-	 */
-	protected function getServerPidPath()
-	{
-		return '/tmp/spiderling-phantom.server.pid';
-	}
 
 	/**
 	 * Adds a server to the start-up list
@@ -301,19 +228,5 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	protected function addServer(Server $server)
 	{
 		$this->servers[] = $server;
-	}
-
-	/**
-	 * Gets the root path of this library
-	 *
-	 * Note that in a Composer context, this does not get the root of the client project,
-	 * just the root of this one. I've therefore made this private, so child classes implement
-	 * something more suitable for themselves.
-	 *
-	 * @return string
-	 */
-	private function getProjectRoot()
-	{
-		return realpath(__DIR__ . '/../../..');
 	}
 }
