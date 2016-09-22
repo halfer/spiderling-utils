@@ -221,12 +221,25 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	/**
 	 * Adds a server to the start-up list
 	 *
-	 * @todo Throw an exception if the URI already exists in an existing server
+	 * @todo Swap the exception for a more specific one
+	 * @todo Add a test to prove this works
 	 *
 	 * @param \halfer\SpiderlingUtils\Server $server
 	 */
 	protected function addServer(Server $server)
 	{
+		// Check if there is a URI clash
+		/* @var $existingServer Server */
+		foreach ($this->servers as $existingServer)
+		{
+			if ($server->getServerUri() === $existingServer->getServerUri())
+			{
+				throw new Exception(
+					"Clashing server URIs detected"
+				);
+			}
+		}
+
 		$this->servers[] = $server;
 	}
 }
