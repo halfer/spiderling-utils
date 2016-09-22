@@ -5,6 +5,7 @@ namespace halfer\SpiderlingUtils;
 abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 {
 	protected $hasInitialised = false;
+	protected $servers = [];
 
 	public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
 	{
@@ -21,7 +22,13 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		{
 			$this->checkPhpExtensions();
 			$this->touchPhantomLog();
-			$this->forkToStartServer();
+			$this->setupServers();
+
+			foreach ($this->servers as $server)
+			{
+				$this->forkToStartServer($server);
+			}
+
 			$this->hasInitialised = true;
 			$this->checkServer();
 		}
@@ -38,7 +45,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		}
 	}
 
-	protected function forkToStartServer()
+	protected function forkToStartServer(Server $server)
 	{
 		$pid = pcntl_fork();
 		if ($pid == -1)
@@ -57,14 +64,14 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			// as that would prevent us from hiding stdout/stderr output - the web server is
 			// pretty verbose.
 			$this->markAsChildProcess();
-			$this->startServer();
+			$this->startServer($server);
 
 			// Exit to prevent PHPUnit thinking it should run again
 			exit();
 		}
 	}
 
-	protected function startServer()
+	protected function startServer(Server $server)
 	{
 		// Assemble parameters
 		$domain = escapeshellarg(str_replace('http://', '', $this->getTestDomain()));
@@ -204,6 +211,8 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 */
 	abstract protected function getDocRoot();
 
+	abstract protected function setupServers();
+
 	/**
 	 * Override this to change the test domain in use
 	 *
@@ -272,6 +281,11 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	protected function getServerPidPath()
 	{
 		return '/tmp/spiderling-phantom.server.pid';
+	}
+
+	protected function addServer(Server $server)
+	{
+		$this->servers[] = $server;
 	}
 
 	/**
