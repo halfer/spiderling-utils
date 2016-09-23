@@ -178,10 +178,14 @@ This library is presently an **early alpha**, which I am using in a couple of pe
 
 I wonder whether, if developers already have their test class inheritance trees set up already, whether the `TestCase` class would be better as a trait.
 
-README to do
+To-do items
 ---
 
-* Detect if the server start script suffers an error
+* Detect if the server start script suffers an error e.g. can't bind to port
+	* Check that forked processes are killed gracefully
 * Test that router and non-router variants work fine
+* Test PhantomJS logging
+* Test a multiple server set-up
+* Test file existence exceptions in Server class
 * Is it possible to test the forked child methods?
 * Add MIT license file
