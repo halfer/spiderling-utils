@@ -84,7 +84,7 @@ Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and
 
 Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your `phpunit.xml`. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
 
-You must also implement`getDocRoot()`, which points to your web server root folder (either using an absolute path, or one relative to the web server start script).
+You must also implement`setupServers()`, which is your test's opportunity to declare what servers to spin up. In most cases, you will create just one, but if you need more than one (e.g. to avoid session conflict) then you can create as many as you like.
 
 	class TestListener extends \halfer\SpiderlingUtils\TestListener
 	{
@@ -99,78 +99,13 @@ You must also implement`getDocRoot()`, which points to your web server root fold
 		}
 
 		/**
-		 * Required, supplies the location of the document root of the app
-		 *
-		 * (Either a full path, or relative to the shell server script will work fine)
+		 * Here's how to spin up a single server
 		 */
-		protected function getDocRoot()
+		protected function setupServers()
 		{
-			return realpath(__DIR__ . '/../../../web');
-		}
-
-		/**
-		 * Optional, point to a router script if required (defaults to off)
-		 *
-		 * (The check-alive feature may need this, unless the web app under test contains its
-		 * own endpoint for the same purpose).
-		 */
-		protected function getRouterScriptPath()
-		{
-			return realpath(__DIR__ . '/../../../test/scripts/router.php');
-		}
-
-		/**
-		 * Optional, only if you want to override the default test domain
-		 *
-		 * (Should match what is specified in the TestCase class)
-		 */
-		protected function getTestDomain()
-		{
-			return 'http://127.0.0.1:10000';
-		}
-
-		/**
-		 * Optional, return a test URL if your router/app supports a test method
-		 */
-		protected function getCheckAliveUrl()
-		{
-			return $this->getTestDomain() . '/server-check';
-		}
-
-		/**
-		 * Optional, return a string for the check-alive feature (defaults to "OK")
-		 */
-		protected function getCheckAliveExpectedResponse()
-		{
-			return 'Working';
-		}
-
-		/**
-		 * Optional, only required if you want to override the default Phantom log path
-		 *
-		 * Use null/false here to turn off logging entirely
-		 *
-		 * (Should match what is specified in the TestCase class)
-		 */
-		protected function getLogPath()
-		{
-			return '/path/to/my/phantom.log';
-		}
-
-		/**
-		 * Optional, override this if you want to point to a different web server start script
-		 */
-		protected function getServerScriptPath()
-		{
-			return $this->getProjectRoot() . '/path/to/my/server.sh';
-		}
-
-		/**
-		 * Optional, override this if you want to change the location of the server PID file
-		 */
-		protected function getServerPidPath()
-		{
-			return '/tmp/spiderling-phantom.server.pid';
+			$docRoot = realpath(__DIR__ . '/../../..') . '/web';
+			$server = new \halfer\SpiderlingUtils\Server($docRoot);
+			$this->addServer($server);
 		}
 	}
 
@@ -184,6 +119,32 @@ web server to your app, making small interventions to:
 * Detect static file requests so they can be passed straight to the web server;
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
+
+Server configuration
+---
+
+There are a number of configuration setters in the Server class that can be used to modify its behaviour; here is the full set:
+
+	// The docroot is mandatory here, you can optionally supply the server URI too, in the second param
+	$server = new \halfer\SpiderlingUtils\Server($docRoot);
+
+	// Points to the optional routing script, defaults to off
+	$server->setRouterScriptPath();
+
+	// Reset the server URI, the default is 127.0.0.1:8090
+	$server->setServerUri();
+
+	// A path to append to the server URI to test that it is up, e.g. /server-test. Defaults to off
+	$server->setCheckAliveUri();
+
+	// A string to expect from the alive test, defaults to "OK"
+	$server->setCheckAliveExpectedResponse();
+
+	// Points to the server start-up script
+	$server->setServerScriptPath();
+
+	// Points to the location to store the PID for this server
+	$server->getServerPidPath();
 
 Writing browser tests
 ---
