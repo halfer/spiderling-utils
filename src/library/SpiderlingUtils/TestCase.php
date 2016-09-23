@@ -168,6 +168,10 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	/**
 	 * Override this to change the test domain in use
 	 *
+	 * This gets the default server URI, which should match up with whatever is being used
+	 * in the Server instance in use. If multiple Servers are in use then it is the developer's
+	 * responsibility to store/manage their list of URIs in the best way they see fit.
+	 *
 	 * @return string
 	 */
 	protected function getTestDomain()

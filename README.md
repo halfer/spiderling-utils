@@ -184,5 +184,4 @@ README to do
 * Detect if the server start script suffers an error
 * Test that router and non-router variants work fine
 * Is it possible to test the forked child methods?
-* Log file path and test domain are specified in both classes, can we centralise these?
 * Add MIT license file
