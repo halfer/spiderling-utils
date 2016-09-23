@@ -25,6 +25,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 	public function driver_phantomjs()
 	{
 		$this->checkPhantomIsAvailable();
+		$this->touchPhantomLog();
 
 		// We can supply a log location here (or omit to use /dev/null)
 		$connection = new Driver_Phantomjs_Connection();
@@ -50,6 +51,17 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 		if ($return)
 		{
 			throw new \Exception("Can't find 'phantomjs' - does the PATH include it?");
+		}
+	}
+
+	/**
+	 * Create a new log file for PhantomJS, mainly useful for Travis
+	 */
+	protected function touchPhantomLog()
+	{
+		if ($logPath = $this->getLogPath())
+		{
+			touch($logPath);
 		}
 	}
 

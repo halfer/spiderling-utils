@@ -17,7 +17,6 @@ class Server
 	protected $routerScriptPath = false;
 	protected $checkAliveUri = false;
 	protected $expectedResponse = 'OK';
-	protected $logPath = '/tmp/spiderling-phantom.log';
 	protected $serverPidPath = '/tmp/spiderling-phantom.server.pid';
 
 	// Defaults for these are set in the c'tor
@@ -109,21 +108,6 @@ class Server
 	public function setCheckAliveExpectedResponse($expectedResponse)
 	{
 		$this->expectedResponse = $expectedResponse;
-	}
-
-	/**
-	 * Fetches the PhantomJS logging path
-	 *
-	 * @return string
-	 */
-	public function getLogPath()
-	{
-		return $this->logPath;
-	}
-
-	public function setLogPath($logPath)
-	{
-		$this->logPath = $logPath;
 	}
 
 	/**

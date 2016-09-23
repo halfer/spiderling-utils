@@ -26,24 +26,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			/* @var $server Server */
 			foreach ($this->servers as $server)
 			{
-				$this->touchPhantomLog($server);
 				$this->forkToStartServer($server);
 				$this->checkServer($server);
 			}
 
 			// This need not be a property of Servers - they are either all up or not
 			$this->hasInitialised = true;
-		}
-	}
-
-	/**
-	 * Create a new log file for PhantomJS, mainly useful for Travis
-	 */
-	protected function touchPhantomLog(Server $server)
-	{
-		if ($logPath = $server->getLogPath())
-		{
-			touch($logPath);
 		}
 	}
 
@@ -216,6 +204,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	 */
 	abstract protected function switchOnBySuiteName($name);
 
+	/**
+	 * This must be overrided to create servers to spin up
+	 *
+	 * Servers are created by instantiating the "Server" class, and passing them to
+	 * addServer().
+	 */
 	abstract protected function setupServers();
 
 	/**
