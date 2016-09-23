@@ -127,24 +127,25 @@ There are a number of configuration setters in the Server class that can be used
 
 	// The docroot is mandatory here, you can optionally supply the server URI too, in the second param
 	$server = new \halfer\SpiderlingUtils\Server($docRoot);
+	$server = new \halfer\SpiderlingUtils\Server($docRoot, '127.0.0.1:10000');
 
 	// Points to the optional routing script, defaults to off
-	$server->setRouterScriptPath();
+	$server->setRouterScriptPath('/path/to/router.php');
 
 	// Reset the server URI, the default is 127.0.0.1:8090
-	$server->setServerUri();
+	$server->setServerUri('127.0.0.1:10000');
 
 	// A path to append to the server URI to test that it is up, e.g. /server-test. Defaults to off
-	$server->setCheckAliveUri();
+	$server->setCheckAliveUri('/status');
 
 	// A string to expect from the alive test, defaults to "OK"
-	$server->setCheckAliveExpectedResponse();
+	$server->setCheckAliveExpectedResponse('{ "status": "OK" }');
 
 	// Points to the server start-up script
-	$server->setServerScriptPath();
+	$server->setServerScriptPath('/path/to/server.sh');
 
 	// Points to the location to store the PID for this server
-	$server->getServerPidPath();
+	$server->getServerPidPath('/path/to/server.pid');
 
 Writing browser tests
 ---
@@ -181,11 +182,10 @@ I wonder whether, if developers already have their test class inheritance trees 
 To-do items
 ---
 
-* Detect if the server start script suffers an error e.g. can't bind to port
-	* Check that forked processes are killed gracefully
+* Detect if the server start script suffers an error e.g. can't bind to port (check that forked processes are killed gracefully)
 * Test that router and non-router variants work fine
 * Test PhantomJS logging
 * Test a multiple server set-up
 * Test file existence exceptions in Server class
-* Is it possible to test the forked child methods?
+* Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
 * Add MIT license file
