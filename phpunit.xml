@@ -7,8 +7,12 @@
 	</testsuites>
 	<listeners>
 		<listener
-			class="\halfer\SpiderlingUtils\Demo\TestListenerSingleServer"
+			class="\halfer\SpiderlingUtils\Test\TestListenerSingleServer"
 			file="test/browser/classes/TestListenerSingleServer.php"
+		/>
+		<listener
+			class="\halfer\SpiderlingUtils\Test\TestListenerMultipleServers"
+			file="test/browser/classes/TestListenerMultipleServers.php"
 		/>
 	</listeners>
 </phpunit>

@@ -11,9 +11,7 @@ class PageTest extends TestCase
 	 */
 	public function testJavaScriptPhrase()
 	{
-		$element = $this->
-			visit($this->getTestDomain())->
-			find('#target');
-		$this->assertEquals('Event successful', $element->text());
+		$target = $this->getTargetElement($this->getTestDomain());
+		$this->assertEquals('Event successful', $target->text());
 	}
 }
