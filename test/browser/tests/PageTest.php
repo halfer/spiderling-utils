@@ -1,6 +1,6 @@
 <?php
 
-namespace halfer\SpiderlingUtils\Demo;
+namespace halfer\SpiderlingUtils\Test;
 
 class PageTest extends TestCase
 {

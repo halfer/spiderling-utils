@@ -4,11 +4,11 @@ namespace halfer\SpiderlingUtils\Demo;
 
 use \halfer\SpiderlingUtils\Server;
 
-class TestListener extends \halfer\SpiderlingUtils\TestListener
+class TestListenerSingleServer extends \halfer\SpiderlingUtils\TestListener
 {
 	public function switchOnBySuiteName($name)
 	{
-		return (strpos($name, 'halfer\\SpiderlingUtils\\Demo\\') !== false);
+		return (strpos($name, 'halfer\\SpiderlingUtils\\Test\\PageTest') !== false);
 	}
 
 	protected function setupServers()

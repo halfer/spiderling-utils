@@ -9,4 +9,4 @@ require_once $projectRoot . '/vendor/autoload.php';
 
 $testClassPath = $projectRoot . '/test/browser/classes';
 require_once $testClassPath . '/TestCase.php';
-require_once $testClassPath . '/TestListener.php';
+require_once $testClassPath . '/TestListenerSingleServer.php';
