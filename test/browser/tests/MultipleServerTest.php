@@ -11,15 +11,11 @@ class MultipleServerTest extends TestCase
 	 */
 	public function testAllServersUp()
 	{
-		// Not working yet
-		/*
 		$this->assertTrue(
 			(bool) $this->getTargetElement('http://127.0.0.1:8091/')
 		);
 		$this->assertTrue(
 			(bool) $this->getTargetElement('http://127.0.0.1:8092/')
 		);
-		*/
-		$this->assertTrue(true);
 	}
 }
