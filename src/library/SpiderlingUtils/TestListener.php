@@ -228,14 +228,14 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		{
 			if ($server->getServerUri() === $existingServer->getServerUri())
 			{
-				throw new Exception(
+				throw new \Exception(
 					"Clashing server URIs detected"
 				);
 			}
 
 			if ($server->getServerPidPath() === $existingServer->getServerPidPath())
 			{
-				throw new Exception(
+				throw new \Exception(
 					"Clashing server PID paths detected"
 				);
 			}
