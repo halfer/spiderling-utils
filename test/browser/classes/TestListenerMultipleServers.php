@@ -24,6 +24,7 @@ class TestListenerMultipleServers extends \halfer\SpiderlingUtils\TestListener
 		$server = new Server($testFolder . '/browser/docroot', 'http://127.0.0.1:' . $port);
 		$server->setRouterScriptPath($testFolder . '/browser/scripts/router.php');
 		$server->setCheckAliveUri('/server-check');
+		$server->setServerPidPath("/tmp/spiderling-phantom-{$port}.server.pid");
 
 		return $server;
 	}
