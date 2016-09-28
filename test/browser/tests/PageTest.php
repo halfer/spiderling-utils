@@ -2,6 +2,9 @@
 
 namespace halfer\SpiderlingUtils\Test;
 
+/**
+ * Any tests to show that PhantomJS is operational
+ */
 class PageTest extends TestCase
 {
 	/**

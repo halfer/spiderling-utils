@@ -2,6 +2,10 @@
 
 namespace halfer\SpiderlingUtils\Test;
 
+/**
+ * Test cases to show that multiple servers may be started, which may be useful to run
+ * multiple sessions simulataneously, for example.
+ */
 class MultipleServerTest extends TestCase
 {
 	/**
