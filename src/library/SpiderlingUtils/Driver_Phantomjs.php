@@ -6,11 +6,29 @@ class Driver_Phantomjs extends \Openbuildings\Spiderling\Driver_Phantomjs
 {
 	public function __destruct()
 	{
-		// Uses is_running instead of is_started, to ensure we don't try to kill it for every
-		// server that we spin up
-		if ($this->_connection AND $this->_connection->is_running())
+		/*
+		 * If we spin up multiple servers, we can get a race condition situation where all
+		 * Phantom destructors are called at the same time. So, they all appear to be up, and
+		 * so each tries to send a closedown request, only for one of them to fail. This
+		 * protects against this nicely.
+		 *
+		 * For reference, the error is:
+		 *
+		 *   Curl "session" throws exception Failed to connect to localhost port 4446: Connection
+		 *   refused
+		 */
+		try
 		{
-			$this->_connection->stop();
+			parent::__destruct();
+		}
+		catch (\Openbuildings\Spiderling\Exception_Driver $e)
+		{
+			// Do nothing in this case
+		}
+		catch (\Exception $e)
+		{
+			// Let's see other errors
+			throw $e;
 		}
 	}
 }
