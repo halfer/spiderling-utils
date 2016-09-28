@@ -115,7 +115,7 @@ If you wish, you can create a simple routing PHP script. The purpose of this is 
 web server to your app, making small interventions to:
 
 * Set your app's environment to a test mode if you wish;
-* Answer a special URL to detect if the system is up
+* Answer a special URL to detect if the system is up;
 * Detect static file requests so they can be passed straight to the web server;
 
 The tests for Spiderling Utils have their own routing file, [see here](https://github.com/halfer/spiderling-utils/blob/master/test/browser/scripts/router.php).
@@ -185,7 +185,7 @@ To-do items
 * Detect if the server start script suffers an error e.g. can't bind to port (check that forked processes are killed gracefully)
 * Test that router and non-router variants work fine
 * Test PhantomJS logging
-* Test a multiple server set-up
+* Test PhantomJS screenshots (I've had troubles with this on Travis, try locally?)
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
 * Add MIT license file
