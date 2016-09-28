@@ -13,9 +13,6 @@ class LoggingTest extends TestCase
 	/**
 	 * Ensures that the log file is growing when we run PhantomJS operations
 	 *
-	 * @todo Assert the log contains the custom URL
-	 * @todo Switch to testing a special id, and ensure that is mentioned as well
-	 *
 	 * @driver phantomjs
 	 */
 	public function testLoggingIsWorking()
@@ -26,14 +23,19 @@ class LoggingTest extends TestCase
 
 		// Visit our test-specific page
 		$url = $this->getTestDomain() . '/logging-test.php';
-		$this->getTargetElement($url);
+		$this->getTargetElement($url, '#log-test');
 
-		// Ensure that the log file contains our URL
+		// Ensure that the log file contains things we expect
 		$logLines = file_get_contents($logPath);
 		$this->assertContains(
 			$url,
 			$logLines,
 			"Check that the log file contains our URL"
+		);
+		$this->assertContains(
+			'log-test',
+			$logLines,
+			"Check that the log file contains our element ID"
 		);
 	}
 

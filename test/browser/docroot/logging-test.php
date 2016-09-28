@@ -4,7 +4,7 @@
 		<title>Hello</title>
 	</head>
 	<body>
-		<p id="target">
+		<p id="log-test">
 			This is a log test.
 		</p>
 	</body>
