@@ -7,6 +7,8 @@ namespace halfer\SpiderlingUtils\Test;
  */
 class ScreenshotTest extends TestCase
 {
+	use FileTrait;
+
 	/**
 	 * Ensures that the screenshot system in PhantomJS is working
 	 *
@@ -31,13 +33,5 @@ class ScreenshotTest extends TestCase
 
 		// Clean up after ourselves
 		$this->removeIfExists($imagePath);
-	}
-
-	protected function removeIfExists($path)
-	{
-		if (file_exists($path))
-		{
-			unlink($path);
-		}
 	}
 }
