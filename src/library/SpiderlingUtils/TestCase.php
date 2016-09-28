@@ -31,7 +31,7 @@ abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spider
 		$connection = new Driver_Phantomjs_Connection();
 		$connection->start(null, $this->getLogPath() ?: '/dev/null');
 
-		$driver = new \Openbuildings\Spiderling\Driver_Phantomjs();
+		$driver = new Driver_Phantomjs();
 		$driver->connection($connection);
 
 		$this->waitUntilPhantomStarts($connection);
