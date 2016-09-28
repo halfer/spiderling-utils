@@ -25,16 +25,15 @@ class LoggingTest extends TestCase
 		$this->zeroFile($logPath);
 
 		// Visit our test-specific page
-		$this->getTargetElement($this->getTestDomain() . '/logging-test.php');
+		$url = $this->getTestDomain() . '/logging-test.php';
+		$this->getTargetElement($url);
 
-		// Get the size of the log file after we've visited a page
-		$endSize = $this->getFilesize($logPath);
-
-		// Ensure that the log file has grown
-		$this->assertGreaterThan(
-			0,
-			$endSize,
-			"Check that the log file has had some lines added to it"
+		// Ensure that the log file contains our URL
+		$logLines = file_get_contents($logPath);
+		$this->assertContains(
+			$url,
+			$logLines,
+			"Check that the log file contains our URL"
 		);
 	}
 

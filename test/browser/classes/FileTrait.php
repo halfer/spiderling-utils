@@ -20,11 +20,4 @@ trait FileTrait
 	{
 		file_put_contents($path, '');
 	}
-
-	protected function getFilesize($path)
-	{
-		$size = file_exists($path) ? filesize($path) : 0;
-
-		return $size;
-	}
 }
