@@ -6,9 +6,26 @@ use \halfer\SpiderlingUtils\Server;
 
 class TestListenerSingleServer extends \halfer\SpiderlingUtils\TestListener
 {
+	/**
+	 * Turns on this single server if any of the named tests are encountered
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
 	public function switchOnBySuiteName($name)
 	{
-		return (strpos($name, 'halfer\\SpiderlingUtils\\Test\\PageTest') !== false);
+		$found = false;
+		$triggerTests = ['PageTest', 'LoggingTest', ];
+		foreach ($triggerTests as $triggerTest)
+		{
+			$found = strpos($name, 'halfer\\SpiderlingUtils\\Test\\' . $triggerTest) !== false;
+			if ($found)
+			{
+				break;
+			}
+		}
+
+		return $found;
 	}
 
 	protected function setupServers()
