@@ -185,7 +185,6 @@ To-do items
 * Detect if the server start script suffers an error e.g. can't bind to port (check that forked processes are killed gracefully)
 * Test that router and non-router variants work fine
 * Test PhantomJS logging
-* Test PhantomJS screenshots (I've had troubles with this on Travis, try locally?)
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
 * Add MIT license file
