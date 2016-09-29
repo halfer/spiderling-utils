@@ -15,7 +15,7 @@ class TestListenerSingleServer extends \halfer\SpiderlingUtils\TestListener
 	public function switchOnBySuiteName($name)
 	{
 		$found = false;
-		$triggerTests = ['PageTest', 'LoggingTest', ];
+		$triggerTests = ['PageTest', 'LoggingTest', 'CurlTest', ];
 		foreach ($triggerTests as $triggerTest)
 		{
 			$found = strpos($name, 'halfer\\SpiderlingUtils\\Test\\' . $triggerTest) !== false;
