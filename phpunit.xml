@@ -14,5 +14,9 @@
 			class="\halfer\SpiderlingUtils\Test\TestListenerMultipleServers"
 			file="test/browser/classes/TestListenerMultipleServers.php"
 		/>
+		<listener
+			class="\halfer\SpiderlingUtils\Test\TestListenerRouterlessServer"
+			file="test/browser/classes/TestListenerRouterlessServer.php"
+		/>
 	</listeners>
 </phpunit>
