@@ -7,7 +7,7 @@ use \halfer\SpiderlingUtils\Server;
 class TestListenerSingleServer extends \halfer\SpiderlingUtils\TestListener
 {
 	/**
-	 * Turns on this single server if any of the named tests are encountered
+	 * Turns on this single server if any of the named test classes are encountered
 	 *
 	 * @param string $name
 	 * @return boolean
