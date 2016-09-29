@@ -187,4 +187,5 @@ To-do items
 * Test that router and non-router variants work fine
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
+* Spiderling and PHPUnit Spiderling both support PHP 5.3 and 5.4 - supporting these too should probably be easy?
 * Add MIT license file
