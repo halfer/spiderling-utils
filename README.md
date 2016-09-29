@@ -175,7 +175,7 @@ To run the internal tests, enter this on your console:
 Status
 ---
 
-This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I am happy to tag a release.
+This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I have tagged a v0.1 release.
 
 I wonder whether, if developers already have their test class inheritance trees set up already, whether the `TestCase` class would be better as a trait.
 
