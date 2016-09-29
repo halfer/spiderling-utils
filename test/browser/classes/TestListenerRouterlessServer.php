@@ -32,7 +32,9 @@ class TestListenerRouterlessServer extends \halfer\SpiderlingUtils\TestListener
 	{
 		// Create a routerless server definition
 		$testFolder = realpath(__DIR__ . '/../../../test');
-		$server = new Server($testFolder . '/browser/docroot', 'http://127.0.0.1:8093');
+		$port = 8093;
+		$server = new Server($testFolder . '/browser/docroot', 'http://127.0.0.1:' . $port);
+		$server->setServerPidPath("/tmp/spiderling-phantom-{$port}.server.pid");
 
 		// Add the server to the list of servers to start
 		$this->addServer($server);
