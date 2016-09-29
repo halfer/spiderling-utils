@@ -187,5 +187,6 @@ To-do items
 * Test that router and non-router variants work fine
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
+* Document the base64 image decode script and how to use this on a headless build server
 * Spiderling and PHPUnit Spiderling both support PHP 5.3 and 5.4 - supporting these too should probably be easy?
 * Add MIT license file
