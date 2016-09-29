@@ -183,6 +183,7 @@ To-do items
 ---
 
 * Detect if the server start script suffers an error e.g. can't bind to port (check that forked processes are killed gracefully)
+* Fix missing test to turn off logging
 * Test that router and non-router variants work fine
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
