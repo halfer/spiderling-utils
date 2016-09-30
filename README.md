@@ -187,6 +187,8 @@ To-do items
 * Test file existence exceptions in Server class
 * Can we have a simple automatic path for PID files (e.g. /tmp/spiderling/127.0.0.1_8090.pid)?
   - Maybe by supporting {SERVER} and {PORT} in the pid path?
+* Is there a way to detect conflicting server ports or PID paths across different listeners?
+  - E.g. read the phpunit.xml config, instantiate each listener, call `addServers()` and then scan the server list of each one
 * Document the base64 image decode script and how to use this on a headless build server
 * Spiderling and PHPUnit Spiderling both support PHP 5.3 and 5.4 - supporting these too should probably be easy?
 * Add MIT license file
