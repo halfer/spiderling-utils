@@ -22,7 +22,13 @@ class Server
 	// Defaults for these are set in the c'tor
 	protected $serverScriptPath;
 
-	public function __construct($docRoot, $serverUri = null)
+	/**
+	 * Creates a server instance
+	 *
+	 * @param string $docRoot
+	 * @param string $serverUri
+	 */
+	public function __construct($docRoot = null, $serverUri = null)
 	{
 		$this->docRoot = $docRoot;
 		if ($serverUri)

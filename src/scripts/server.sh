@@ -3,7 +3,7 @@
 # Parameters:
 #
 # $1 = Web server address (required)
-# $2 = Document root (required)
+# $2 = Document root (required, can be empty)
 # $3 = PID path (required)
 # $4 = Router script (optional)
 
@@ -13,6 +13,11 @@ cd `dirname $0`/../..
 
 # Create a temporary file to catch stderr in
 ERROR_FILE=`mktemp /tmp/spiderling-utils-XXXXXXXX`
+
+# Only add a -t (docroot) if it is required
+if [ ! "$2" = "" ]; then
+	DOC_ROOT="-t $2"
+fi
 
 if [ "$4" = "" ]; then
 	# Start up built-in web server without router script
