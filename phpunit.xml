@@ -6,6 +6,7 @@
 		</testsuite>
 	</testsuites>
 	<listeners>
+		<!-- Note these can be called in any order -->
 		<listener
 			class="\halfer\SpiderlingUtils\Test\TestListenerSingleServer"
 			file="test/browser/classes/TestListenerSingleServer.php"
@@ -18,5 +19,15 @@
 			class="\halfer\SpiderlingUtils\Test\TestListenerRouterlessServer"
 			file="test/browser/classes/TestListenerRouterlessServer.php"
 		/>
+		<listener
+			class="\halfer\SpiderlingUtils\Test\TestListenerClashingServer1"
+			file="test/browser/classes/TestListenerClashingServer1.php"
+		/>
+		<!--
+		<listenerX
+			class="\halfer\SpiderlingUtils\Test\TestListenerClashingServer2"
+			file="test/browser/classes/TestListenerClashingServer2.php"
+		/>
+		-->
 	</listeners>
 </phpunit>
