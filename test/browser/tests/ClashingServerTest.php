@@ -7,10 +7,16 @@ namespace halfer\SpiderlingUtils\Test;
  */
 class ClashingServerTest extends TestCase
 {
+	/**
+	 * @todo Maybe replace the sleep() with a file-based check to ensure both servers have had
+	 * a chance to start up?
+	 */
 	public function testClashingServers()
 	{
-		$succeededCount = $failedCount = 0;
+		// Need to wait for servers to try to start up first
+		sleep(2);
 
+		$failedCount = 0;
 		for($suffix = 1; $suffix <= 2; $suffix++)
 		{
 			$path = "/tmp/spiderling-utils-clash-{$suffix}.pid";

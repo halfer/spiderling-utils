@@ -25,6 +25,9 @@ class TestListenerClashingServer1 extends \halfer\SpiderlingUtils\TestListener
 		$suffix = $this->getSuffix();
 		$server->setServerPidPath("/tmp/spiderling-phantom-{$port}-{$suffix}.server.pid");
 
+		// Delete any existing error notifications
+		@unlink($this->getErrorPathName());
+
 		// Add the server to the list of servers to start
 		$this->addServer($server);
 	}
@@ -46,8 +49,14 @@ class TestListenerClashingServer1 extends \halfer\SpiderlingUtils\TestListener
 	 */
 	protected function notifyServerStartError($error)
 	{
+		file_put_contents($this->getErrorPathName(), $error);
+	}
+
+	protected function getErrorPathName()
+	{
 		$suffix = $this->getSuffix();
 		$path = "/tmp/spiderling-utils-clash-{$suffix}.pid";
-		file_put_contents($path, $error);
+
+		return $path;
 	}
 }
