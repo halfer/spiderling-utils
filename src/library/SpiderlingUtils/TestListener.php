@@ -74,14 +74,14 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		$scriptPath = '"' . $server->getServerScriptPath() . '"';
 		$command = escapeshellcmd(trim("$scriptPath $params")) . ' 2> /dev/null';
 
-		$output = $return = null;
-		exec($command, $output, $return);
+		$output = null;
+		exec($command, $output);
 
-		if ($return)
+		// It doesn't seem we can stop the tests from here, even by throwing an exception,
+		// so let's just render something to stdout
+		if ($output)
 		{
-			throw new \Exception(
-				sprintf("Failure when running server script `%s`", $scriptPath)
-			);
+			echo sprintf("Error when running server script: `%s`", $output[0]);
 		}
 	}
 
