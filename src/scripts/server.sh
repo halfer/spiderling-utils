@@ -20,13 +20,11 @@ if [ ! "$2" = "" ]; then
 	DOC_ROOT="-t $2"
 fi
 
-if [ "$4" = "" ]; then
-	# Start up built-in web server without router script
-	php -S $1 $DOC_ROOT      2> $ERROR_FILE &
-else
-	# Start up built-in web server with router script
-	php -S $1 $DOC_ROOT $4   2> $ERROR_FILE &
-fi;
+# The router script can just be tacked on the end
+ROUTER_SCRIPT=$4
+
+# Start up built-in web server with router script
+php -S $1 $DOC_ROOT $ROUTER_SCRIPT 2> $ERROR_FILE &
 
 # Let the server settle down
 sleep 1
