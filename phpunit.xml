@@ -23,11 +23,9 @@
 			class="\halfer\SpiderlingUtils\Test\TestListenerClashingServer1"
 			file="test/browser/classes/TestListenerClashingServer1.php"
 		/>
-		<!--
-		<listenerX
+		<listener
 			class="\halfer\SpiderlingUtils\Test\TestListenerClashingServer2"
 			file="test/browser/classes/TestListenerClashingServer2.php"
 		/>
-		-->
 	</listeners>
 </phpunit>
