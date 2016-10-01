@@ -31,11 +31,9 @@ Add this clause in your `composer.json`:
         }
     ]
 
-Then in your `require-dev` section add this:
+Then using Composer, run this:
 
-    "halfer/spiderling-utils": "dev-master"
-
-Then issue a `composer update` in the usual way.
+    composer require --dev halfer/spiderling-utils:0.1.*
 
 Usage
 ---
