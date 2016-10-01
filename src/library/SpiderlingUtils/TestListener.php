@@ -175,6 +175,15 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		}
 	}
 
+	/**
+	 * Called to kill a server process
+	 *
+	 * @todo I'm adding the error suppression operator on the unlink, because the clashing
+	 * server test seems to result in this being called when the PID file does not exist -
+	 * investigate?
+	 *
+	 * @param \halfer\SpiderlingUtils\Server $server
+	 */
 	protected function destroyServer(Server $server)
 	{
 		// Get pid from temp location
@@ -185,7 +194,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			{
 				$this->killProcessById($pid);
 			}
-			unlink($filename);
+			@unlink($filename);
 		}
 	}
 
