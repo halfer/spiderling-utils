@@ -15,16 +15,17 @@ cd `dirname $0`/../..
 ERROR_FILE=`mktemp /tmp/spiderling-utils-XXXXXXXX`
 
 # Only add a -t (docroot) if it is required
+DOC_ROOT=''
 if [ ! "$2" = "" ]; then
 	DOC_ROOT="-t $2"
 fi
 
 if [ "$4" = "" ]; then
 	# Start up built-in web server without router script
-	php -S $1 -t $2      2> $ERROR_FILE &
+	php -S $1 $DOC_ROOT      2> $ERROR_FILE &
 else
 	# Start up built-in web server with router script
-	php -S $1 -t $2 $4   2> $ERROR_FILE &
+	php -S $1 $DOC_ROOT $4   2> $ERROR_FILE &
 fi;
 
 # Let the server settle down
