@@ -29,8 +29,11 @@ php -S $1 $DOC_ROOT $ROUTER_SCRIPT 2> $ERROR_FILE &
 # Let the server settle down
 sleep 1
 
+# Send a dummy kill to the process to see if it is still alive
+kill -0 $! 2> /dev/null
+
 # If there was an error, let's see it on stdout, then exit
-if [[ -s $ERROR_FILE ]]; then
+if [ "$?" = "1" ]; then
 	cat $ERROR_FILE
 	rm $ERROR_FILE
 	exit 1
