@@ -77,12 +77,24 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		$output = null;
 		exec($command, $output);
 
-		// It doesn't seem we can stop the tests from here, even by throwing an exception,
-		// so let's just render something to stdout
+		// If there is any output, we got an error
 		if ($output)
 		{
-			echo sprintf("Error when running server script: `%s`", $output[0]);
+			$this->notifyServerStartError($output[0]);
 		}
+	}
+
+	/**
+	 * Handle an error experienced during server start
+	 *
+	 * It doesn't seem we can stop the tests from here, even by throwing an exception,
+	 * so let's just render something to stdout
+	 *
+	 * @param string $error
+	 */
+	protected function notifyServerStartError($error)
+	{
+		echo sprintf("\nError when running server script: `%s`\n", $error);
 	}
 
 	/**
