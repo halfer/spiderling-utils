@@ -180,6 +180,7 @@ I wonder whether, if developers already have their test class inheritance trees 
 To-do items
 ---
 
+* Add option to see servers being terminated at the end of the tests, as a helpful visual reassurance
 * If there is no docroot _or_ a router script, throw an error - at least one is required
 * Fix missing test to turn off logging
 * Test file existence exceptions in Server class
