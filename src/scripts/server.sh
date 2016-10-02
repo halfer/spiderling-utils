@@ -14,17 +14,23 @@ cd `dirname $0`/../..
 # Create a temporary file to catch stderr in
 ERROR_FILE=`mktemp /tmp/spiderling-utils-XXXXXXXX`
 
+# Here is the address/port to bind to (e.g. 127.0.0.1:8901 or 0.0.0.0:8080)
+SERVER_ADDR=$1
+
 # Only add a -t (docroot) if it is required
 DOC_ROOT=''
 if [ ! "$2" = "" ]; then
 	DOC_ROOT="-t $2"
 fi
 
+# Here is the file to write the PID into
+PID_FILE=$3
+
 # The router script can just be tacked on the end
 ROUTER_SCRIPT=$4
 
 # Start up built-in web server with router script
-php -S $1 $DOC_ROOT $ROUTER_SCRIPT 2> $ERROR_FILE &
+php -S $SERVER_ADDR $DOC_ROOT $ROUTER_SCRIPT 2> $ERROR_FILE &
 
 # Let the server settle down
 sleep 1
@@ -40,7 +46,7 @@ if [ "$?" = "1" ]; then
 fi
 
 # Save the 'last backgrounded process' PID to file
-echo $! > $3
+echo $! > $PID_FILE
 
 # Tidy up
 rm $ERROR_FILE
