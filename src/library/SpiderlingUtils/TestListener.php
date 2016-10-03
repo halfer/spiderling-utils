@@ -198,7 +198,7 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 			$pid = (int) file_get_contents($filename);
 			if ($pid)
 			{
-				$this->killProcessById($pid);
+				$this->killProcessById($server, $pid);
 			}
 			@unlink($filename);
 		}
@@ -207,11 +207,16 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 	/**
 	 * Override this if the posix functions are not available
 	 *
+	 * @param $server Server
 	 * @param integer $pid
 	 */
-	protected function killProcessById($pid)
+	protected function killProcessById(Server $server, $pid)
 	{
 		posix_kill($pid, SIGKILL);
+		if ($server->getVerboseExit())
+		{
+			echo sprintf("Terminating server %d\n", $pid);
+		}
 	}
 
 	/**

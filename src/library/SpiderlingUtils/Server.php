@@ -18,6 +18,7 @@ class Server
 	protected $checkAliveUri = false;
 	protected $expectedResponse = 'OK';
 	protected $serverPidPath = '/tmp/spiderling-phantom.server.pid';
+	protected $verboseExit = false;
 
 	// Defaults for these are set in the c'tor
 	protected $serverScriptPath;
@@ -156,6 +157,24 @@ class Server
 	public function setServerPidPath($serverPidPath)
 	{
 		$this->serverPidPath = $serverPidPath;
+	}
+
+	public function getVerboseExit()
+	{
+		return $this->verboseExit;
+	}
+
+	/**
+	 * Set to true if you want the server to report its exit after the tests
+	 *
+	 * (Can be reassuring to see everything is closed down correctly)
+	 *
+	 * @todo This needs documenting in the READMEs
+	 * @param boolean $verboseExit
+	 */
+	public function setVerboseExit($verboseExit)
+	{
+		$this->verboseExit = (bool) $verboseExit;
 	}
 
 	/**
