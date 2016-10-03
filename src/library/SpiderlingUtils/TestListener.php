@@ -74,6 +74,12 @@ abstract class TestListener extends \PHPUnit_Framework_BaseTestListener
 		$scriptPath = '"' . $server->getServerScriptPath() . '"';
 		$command = escapeshellcmd(trim("$scriptPath $params")) . ' 2> /dev/null';
 
+		// Pass this command to the shell
+		$this->executeShellCommand($command);
+	}
+
+	protected function executeShellCommand($command)
+	{
 		$output = null;
 		exec($command, $output);
 
