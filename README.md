@@ -40,7 +40,7 @@ Usage
 
 Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and that will become your test case parent.
 
-	class TestCase extends \halfer\SpiderlingUtils\TestCase
+	abstract class TestCase extends \halfer\SpiderlingUtils\TestCase
 	{
 		/**
 		 * Optional, only if you want to override the default test domain
