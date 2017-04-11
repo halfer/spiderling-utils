@@ -17,3 +17,4 @@ before_script:
   - which phantomjs
 script:
   - phpunit
+  - ${PROJECTROOT}/test/phpunit/test.sh
