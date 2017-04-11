@@ -37,7 +37,7 @@ class ClashingServerTest extends TestCase
 	}
 
 	/**
-	 * Helps waits for up to five seconds before giving up
+	 * Helps wait for up to five seconds before giving up
 	 *
 	 * @param float $startTime
 	 * @return boolean
