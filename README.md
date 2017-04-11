@@ -190,6 +190,10 @@ Two drivers are tested for use with Spiderling Utils:
 
 There are two others, `selenium` and `kohana`, but they are not tested against Spiderling Utils. See the PHPUnit Spiderling docs for more information on those.
 
+If you wish to use the PhantomJS driver, you'll have to install PhantomJS. An easy way to do this is via Composer:
+
+	composer require --dev jakoch/phantomjs-installer:2.1.1-p08
+
 Using Spiderling with Travis
 ---
 
