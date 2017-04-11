@@ -17,5 +17,5 @@ namespace halfer\SpiderlingUtils;
  */
 abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spiderling
 {
-	use TestCaseFeatures;
+	use \halfer\SpiderlingUtils\Feature\TestCase;
 }

@@ -4,11 +4,12 @@
  * A trait to bring in utility methods into our class structure
  */
 
-namespace halfer\SpiderlingUtils;
+namespace halfer\SpiderlingUtils\Feature;
 
-use \Openbuildings\Spiderling\Driver_Phantomjs_Connection;
+use Openbuildings\Spiderling\Driver_Phantomjs_Connection;
+use halfer\SpiderlingUtils\Driver_Phantomjs;
 
-trait TestCaseFeatures
+trait TestCase
 {
 	/**
 	 * Let's set add some logging here, to see why PhantomJS is flaky on Travis
