@@ -47,14 +47,35 @@ class ServerTest extends TestCase
 		);
 	}
 
+	/**
+	 * Ensures that two servers with the same URL are rejected
+	 *
+	 * @expectedException \Exception
+	 */
 	public function testClashingServerUris()
 	{
-		$this->markTestIncomplete();
+		$listener = new TestListenerMultipleServersHarness();
+		$listener->addServers([
+			new Server('/tmp/docroot1', 'http://localhost:10000/'),
+			new Server('/tmp/docroot2', 'http://localhost:10000/'),
+		]);
+		$listener->runningBrowserTests();
 	}
 
+	/**
+	 * Ensures that two servers with the same PID path are rejected
+	 *
+	 * @expectedException \Exception
+	 */
 	public function testClashingServerPidPaths()
 	{
-		$this->markTestIncomplete();
+		$server1 = new Server('/tmp/docroot1', 'http://localhost:10000/');
+		$server1->setServerPidPath('/tmp/pidpath');
+		$server2 = new Server('/tmp/docroot2', 'http://localhost:10001/');
+		$server2->setServerPidPath('/tmp/pidpath');
+		$listener = new TestListenerMultipleServersHarness();
+		$listener->addServers([$server1, $server2, ]);
+		$listener->runningBrowserTests();
 	}
 }
 
@@ -83,5 +104,32 @@ class TestListenerHarness extends \halfer\SpiderlingUtils\TestListener
 	public function executeShellCommand($command)
 	{
 		$this->command = $command;
+	}
+}
+
+class TestListenerMultipleServersHarness extends \halfer\SpiderlingUtils\TestListener
+{
+	// Dummy method
+	protected function switchOnBySuiteName($name)
+	{
+		return false;
+	}
+
+	// Dummy method
+	protected function setupServers()
+	{
+	}
+
+	public function addServers(array $servers)
+	{
+		foreach ($servers as $server)
+		{
+			$this->addServer($server);
+		}
+	}
+
+	protected function forkToStartServer(Server $server)
+	{
+		// Overrided this for safety
 	}
 }

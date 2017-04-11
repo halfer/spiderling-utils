@@ -233,7 +233,6 @@ trait TestListener
 	 * Adds a server to the start-up list
 	 *
 	 * @todo Swap the exceptions for a more specific one
-	 * @todo Add a test to prove the exceptions work
 	 *
 	 * @param \halfer\SpiderlingUtils\Server $server
 	 */
