@@ -14,7 +14,7 @@ trait TestCase
 	/**
 	 * Let's set add some logging here, to see why PhantomJS is flaky on Travis
 	 */
-	public function driver_phantomjs()
+	public function base_driver_phantomjs()
 	{
 		$this->checkPhantomIsAvailable();
 		$this->touchPhantomLog();

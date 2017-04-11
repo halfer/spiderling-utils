@@ -2,6 +2,8 @@
 
 namespace halfer\SpiderlingUtils;
 
+use Openbuildings\Spiderling\Driver_Phantomjs;
+
 /**
  * Let's have some declarations for magic methods
  *
@@ -15,14 +17,14 @@ namespace halfer\SpiderlingUtils;
  * @method array all($selector) Returns all matching elements as Nodes
  * @method void screenshot($filename) Takes a screenshot at this point in time
  */
-abstract class TestCase extends \Openbuildings\PHPUnitSpiderling\Testcase_Spiderling
+abstract class NamespacedTestCase extends \Openbuildings\PHPUnitSpiderling\TestCase
 {
 	use \halfer\SpiderlingUtils\Feature\TestCase;
 
 	/**
-	 * Calls old implementation of the driver (PHP 5, PHPUnit < 6)
+	 * Calls new implementation of the driver (PHP 7, PHPUnit >= 6)
 	 */
-	public function driver_phantomjs()
+	public function driver_phantomjs() : Driver_Phantomjs
 	{
 		return $this->base_driver_phantomjs();
 	}
