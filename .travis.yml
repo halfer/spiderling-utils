@@ -12,7 +12,7 @@ before_script:
   - composer install
   - export PROJECTROOT=`pwd`
   - export PATH=`pwd`/vendor/bin:$PATH
-  - composer --working-dir ${PROJECTROOT}/test/phpunit/v6 install
+  - composer install --working-dir ${PROJECTROOT}/test/phpunit/v6
   - which phpunit
   - which phantomjs
 script:
