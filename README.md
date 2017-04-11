@@ -148,7 +148,47 @@ There are a number of configuration setters in the Server class that can be used
 Writing browser tests
 ---
 
-There are plenty of examples on searching for DOM elements using CSS, retrieving text items, filling in controls, clicking on buttons, submitting forms, etc. See [the manual here](https://github.com/OpenBuildings/spiderling).
+There are plenty of examples on searching for DOM elements using CSS, retrieving text items, filling in controls, clicking on buttons, submitting forms, etc. See [the manual here](https://github.com/OpenBuildings/spiderling). To write test classes, see the [manual here](https://github.com/OpenBuildings/phpunit-spiderling).
+
+Here is a short example:
+
+	namespace Foo\Tests\Integration;
+
+	use Foo\Tests\Integration\TestCase;
+
+	class IntegrationTest extends TestCase
+	{
+		const URL_BASE = 'http://127.0.0.1:8090';
+
+		/**
+		 * Tests something
+		 *
+		 * @driver simple
+		 */
+		public function testSomething()
+		{
+			$text = $this->
+				visit(self::URL_BASE . '/test.html')->
+				find('div.hello')->
+				text();
+			$this->assertContains('Hello', $text);
+		}
+	}
+
+You can see that:
+
+* A fully-qualified local server URL is visited
+* A div of a specific class is found
+* The text in that div is rendered to a string
+* A PHPUnit "contains" comparison is run on the string
+* A driver name is specified in the test docblock, this is required
+
+Two drivers are tested for use with Spiderling Utils:
+
+* `simple` is a curl-based HTTP fetch
+* `phantomjs` spins up a PhantomJS server (assuming you have the right dependencies) so that JavaScript can be run as per a standard browser
+
+There are two others, `selenium` and `kohana`, but they are not tested. See the PHPUnit Spiderling docs for more information on those.
 
 Using Spiderling with Travis
 ---
