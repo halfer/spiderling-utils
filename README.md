@@ -93,7 +93,7 @@ You must also implement`setupServers()`, which is your test's opportunity to dec
 		 **/
 		protected function switchOnBySuiteName($name)
 		{
-			return (strpos($name, 'Foo\\Baar\\') !== false);
+			return (strpos($name, 'Foo\\Bar\\') !== false);
 		}
 
 		/**

@@ -57,7 +57,7 @@ class LoggingTest extends TestCase
 	 */
 	public function testNotLoggingIsWorking()
 	{
-		// FIXME
+		// @todo Missing test
 		$this->markTestIncomplete();
 	}
 }
