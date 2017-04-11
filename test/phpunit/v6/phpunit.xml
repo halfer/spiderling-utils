@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test/bootstrap.php">
+	<testsuites>
+		<testsuite name="tests">
+			<directory>test</directory>
+		</testsuite>
+	</testsuites>
+	<listeners>
+		<!-- Note these can be called in any order -->
+		<listener
+			class="\halfer\SpiderlingUtils\NamespaceDemo\TestListener"
+			file="classes/TestListener.php"
+		/>
+	</listeners>
+</phpunit>
