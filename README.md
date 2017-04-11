@@ -188,7 +188,7 @@ Two drivers are tested for use with Spiderling Utils:
 * `simple` is a curl-based HTTP fetch
 * `phantomjs` spins up a PhantomJS server (assuming you have the right dependencies) so that JavaScript can be run as per a standard browser
 
-There are two others, `selenium` and `kohana`, but they are not tested. See the PHPUnit Spiderling docs for more information on those.
+There are two others, `selenium` and `kohana`, but they are not tested against Spiderling Utils. See the PHPUnit Spiderling docs for more information on those.
 
 Using Spiderling with Travis
 ---
@@ -213,7 +213,7 @@ To run the internal tests, enter this on your console:
 Status
 ---
 
-This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I have tagged a v0.1 release.
+This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I have tagged some releases.
 
 I wonder whether, if developers already have their test class inheritance trees set up already, whether the `TestCase` class would be better as a trait.
 
@@ -229,5 +229,4 @@ To-do items
 * Is there a way to detect conflicting server ports or PID paths across different listeners?
   - E.g. read the phpunit.xml config, instantiate each listener, call `addServers()` and then scan the server list of each one
 * Document the base64 image decode script and how to use this on a headless build server
-* Spiderling and PHPUnit Spiderling both support PHP 5.3 and 5.4 - supporting these too should probably be easy?
 * Add MIT license file
