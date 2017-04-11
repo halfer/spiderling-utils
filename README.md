@@ -18,9 +18,13 @@ Spiderling Utils makes it easy to integrate this system. It offers these feature
 * Adds a simple way to output screenshots inside logs on headless build servers e.g. Travis
 * Uses a test listener to only start up the web server if it is required
 * Some extra test methods, such as waiting for a redirect, and waiting for a selector count
+* Support for various versions of PHPUnit (4, 5 and 6)
 
-Installation
+Installation on PHP 7 and PHPUnit 6
 ---
+
+These instructions are for you're running PHP 7.0 or above, and PHPUnit 6.0 or above.
+If you're using an older version of either, skip the the next section.
 
 Add this clause in your `composer.json`:
 
@@ -31,16 +35,34 @@ Add this clause in your `composer.json`:
         }
     ]
 
-Then using Composer, run this:
+Then using Composer, run these Composer commands:
 
-    composer require --dev halfer/spiderling-utils:0.1.*
+    composer require --dev halfer/spiderling-utils:dev-master
+    composer require --dev openbuildings/phpunit-spiderling:0.2.0-rc.1
+    composer require --dev jakoch/phantomjs-installer:2.1.1-p08
+
+PHPUnit Spiderling will be happy with PHPUnit 6.0, but if you want a later version in the 6.x
+series, such as 6.1, you'll need to install it first.
+
+Installation on earlier versions of PHP and PHPUnit
+---
+
+Add the `repositories` section as above first, that's just the same.
+
+Then using Composer, run these Composer commands:
+
+    composer require --dev halfer/spiderling-utils:dev-master
+    composer require --dev openbuildings/phpunit-spiderling:0.1.*
+    composer require --dev jakoch/phantomjs-installer:2.1.1-p08
+
+That should work fine with PHPUnit 4 or 5.
 
 Usage
 ---
 
-Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and that will become your test case parent.
+Assuming you're using PHPUnit 6 or above, create an abstract class to inherit from `\halfer\SpiderlingUtils\NamespacedTestCase`, and that will become your test case parent. If you're using an earlier version, swap this to `\halfer\SpiderlingUtils\TestCase` instead:
 
-	abstract class TestCase extends \halfer\SpiderlingUtils\TestCase
+	abstract class TestCase extends \halfer\SpiderlingUtils\NamespacedTestCase
 	{
 		/**
 		 * Optional, only if you want to override the default test domain
@@ -80,11 +102,13 @@ Create an abstract class to inherit from `\halfer\SpiderlingUtils\TestCase`, and
 		}
 	}
 
-Create a class to inherit from `\halfer\SpiderlingUtils\TestListener`, and that will become a listener that can be wired into your `phpunit.xml`. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
+Create a class to inherit from `\halfer\SpiderlingUtils\NamespacedTestListener`, and that will become a listener that can be wired into your `phpunit.xml`. This must implement `switchOnBySuiteName($name)`, which should return true if a suite name or namespace is one that you recognise, and if a web server is required. This means that if you only need to run your unit tests, a server is not spun up.
 
 You must also implement`setupServers()`, which is your test's opportunity to declare what servers to spin up. In most cases, you will create just one, but if you need more than one (e.g. to avoid session conflict) then you can create as many as you like.
 
-	class TestListener extends \halfer\SpiderlingUtils\TestListener
+Again, this is `NamespacedTestListener` for PHPUnit 6 and above, `TestListener` otherwise.
+
+	class TestListener extends \halfer\SpiderlingUtils\NamespacedTestListener
 	{
 		/**
 		 * Required, return true if you recognise the test suite name or namespace
