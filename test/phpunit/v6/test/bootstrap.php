@@ -15,6 +15,7 @@ require_once $parentRoot . '/src/library/SpiderlingUtils/Feature/TestCase.php';
 require_once $parentRoot . '/src/library/SpiderlingUtils/Feature/TestListener.php';
 require_once $parentRoot . '/src/library/SpiderlingUtils/NamespacedTestCase.php';
 require_once $parentRoot . '/src/library/SpiderlingUtils/NamespacedTestListener.php';
+require_once $parentRoot . '/src/library/SpiderlingUtils/Driver_Phantomjs.php';
 
 // Load test classes
 require_once $projectRoot . '/classes/TestListener.php';
