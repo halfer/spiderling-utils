@@ -25,6 +25,3 @@ spl_autoload_register(
 		}
 	}
 );
-
-// Load test classes
-require_once $projectRoot . '/classes/TestListener.php';
