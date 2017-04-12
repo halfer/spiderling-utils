@@ -241,9 +241,7 @@ To run the internal tests, enter this on your console:
 Status
 ---
 
-This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I have tagged some releases.
-
-I wonder whether, if developers already have their test class inheritance trees set up already, whether the `TestCase` class would be better as a trait.
+This library is presently an **early alpha**, which I am using in a couple of personal projects. It is subject to change, but if anyone wishes to use it as it stands, I have tagged some releases. Version 0.2 is presently the last release, which hardwires a version of `openbuildings/phpunit-spiderling` that is incompatible with PHPUnit 6. However this is resolved in the master branch, which has a much wider allowance of PHPUnit versions. If anyone is interested in a new release, file an issue and I'll get it done.
 
 To-do items
 ---
