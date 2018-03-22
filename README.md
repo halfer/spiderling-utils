@@ -38,8 +38,8 @@ Add this clause in your `composer.json`:
 Then using Composer, run these Composer commands:
 
     composer require --dev halfer/spiderling-utils:dev-master
-    composer require --dev openbuildings/phpunit-spiderling:0.2.0-rc.1
-    composer require --dev jakoch/phantomjs-installer:2.1.1-p08
+    composer require --dev openbuildings/phpunit-spiderling:0.2.0
+    composer require --dev jakoch/phantomjs-installer:2.1.1-p09
 
 PHPUnit Spiderling will be happy with PHPUnit 6.0, but if you want a later version in the 6.x
 series, such as 6.1, you'll need to install it first.
