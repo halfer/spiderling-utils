@@ -67,6 +67,12 @@ trait TestListener
 		$scriptPath = '"' . $server->getServerScriptPath() . '"';
 		$command = escapeshellcmd(trim("$scriptPath $params")) . ' 2> /dev/null';
 
+		// Put in a shell command prefix if one is required
+		if ($shell = $server->getShellCommand())
+		{
+			$command = "$shell $command";
+		}
+
 		// Pass this command to the shell
 		$this->executeShellCommand($command);
 	}

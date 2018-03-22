@@ -19,6 +19,7 @@ class Server
 	protected $expectedResponse = 'OK';
 	protected $serverPidPath = '/tmp/spiderling-phantom.server.pid';
 	protected $verboseExit = false;
+    protected $shell = '';
 
 	// Defaults for these are set in the c'tor
 	protected $serverScriptPath;
@@ -175,6 +176,16 @@ class Server
 	public function setVerboseExit($verboseExit)
 	{
 		$this->verboseExit = (bool) $verboseExit;
+	}
+
+	public function setShellCommand($shell)
+	{
+		$this->shell = $shell;
+	}
+
+	public function getShellCommand()
+	{
+		return $this->shell;
 	}
 
 	/**
