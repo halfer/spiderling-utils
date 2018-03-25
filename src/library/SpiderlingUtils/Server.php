@@ -52,6 +52,11 @@ class Server
 
 	public function setServerUri($serverUri)
 	{
+		if (empty($serverUri) || !$serverUri)
+		{
+			throw new Exception('The server URI cannot be empty');
+		}
+
 		$this->serverUri = $serverUri;
 	}
 
